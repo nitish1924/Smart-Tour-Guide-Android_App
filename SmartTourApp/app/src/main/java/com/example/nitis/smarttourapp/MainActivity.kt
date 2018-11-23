@@ -12,78 +12,20 @@ import java.net.URL
 import java.net.URLEncoder
 import android.os.AsyncTask
 import java.io.InputStreamReader
-import com.example.nitis.smarttourapp.MainActivity.DownloadTask
-
-
-
 
 class MainActivity : AppCompatActivity(){
-
-    inner class DownloadTask : AsyncTask<String, Void, String>() {
-        //pass a url as string and get html as string.
-        override//some kind of function can be passed but excluding it by calling it void
-        fun doInBackground(vararg urls: String): String {
-            val json = JSONObject()
-            json.put("username", "nitish1924@gmail.com")
-            json.put("password","nitish")
-
-            var result="hello"
-            var urlConn: HttpURLConnection? = null
-            try {
-                val url: URL
-                val printout: DataOutputStream
-                val address = urls[0]
-                url = URL(address)
-                urlConn = url.openConnection() as HttpURLConnection
-                urlConn.doInput = true
-                urlConn.doOutput = true
-                urlConn.useCaches = false
-                urlConn.requestMethod = "POST"
-                urlConn.setChunkedStreamingMode(100)
-                urlConn.setRequestProperty("Content-Type","application/json")
-                urlConn.connect()
-                // Send POST output.
-                printout = DataOutputStream(urlConn.outputStream)
-                val output = URLEncoder.encode(json.toString(), "UTF-8")
-                printout.writeUTF(output)
-                printout.flush()
-
-
-
-                var res = Integer.toString(urlConn.responseCode)
-                result=res.toString()
-                printout.close()
-            } catch (e: Exception) {
-                e.printStackTrace()
-            } finally {
-                if (urlConn != null)
-                    urlConn.disconnect()
-            }
-            Log.i("response",result)
-            return result
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var result = ""
-        val username = "nitish1924@gmil.com"
-        val password = "nitish"
-        val task = DownloadTask()
-        signin.setOnClickListener{
-            result = task.execute("http://10.0.2.2:3000/signin").get();
-        }
-        Toast.makeText(this,result,Toast.LENGTH_SHORT).show()
 
-
+        supportFragmentManager
+                .beginTransaction ()
+                .replace( R.id.frame, sign_in.newInstance(1),"kuchbhi")
+                .addToBackStack(null)
+                .commit()
+    }
     }
 
-    private fun signIn(username: String, password: String):String {
-        //Toast.makeText(this,username,Toast.LENGTH_SHORT).show()
 
 
-        return "hellllllll"
-
-    }
-}
