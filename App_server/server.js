@@ -61,6 +61,8 @@ app.post('/signin',(req,res)=>{
 		return res.status(400).json('All fields are Mandatory!');
 	}
 	var name =  "";
+	var email1 ="";
+	var contact="";
 	auth.signInWithEmailAndPassword(email, password)
 	.then((user)=>{
 		db.ref('users').once("value")
@@ -68,9 +70,12 @@ app.post('/signin',(req,res)=>{
 		    snapshot.forEach((Snapshot) => {
 		    	if(Snapshot.child('UserId').val()===user.user.uid){
 		     	name = Snapshot.child('Name').val()
+		     	email1 = Snapshot.child('Email').val()
+		     	contact = Snapshot.child('contact').val()
 		     	}
 		  	});
-		  	return res.json(name);
+		  	var response = {"email":email1, "name":name,"contact":contact}
+		  	return res.json(response);
 		});
 	})
 	.catch((error)=>{

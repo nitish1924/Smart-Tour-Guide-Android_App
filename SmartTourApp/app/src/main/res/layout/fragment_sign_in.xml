@@ -21,6 +21,7 @@
             android:src="@drawable/logo" />
 
         <EditText
+            android:id="@+id/signin_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -40,6 +41,7 @@
             android:background="#f9d7db" />
 
         <EditText
+            android:id="@+id/signin_pwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -47,7 +49,7 @@
             android:drawableLeft="@drawable/ic_lock_open_black_24dp"
             android:drawablePadding="12dp"
             android:ems="20"
-            android:hint="........"
+            android:hint="Password"
             android:inputType="textPassword"
             android:padding="8dp"
             android:textColor="@color/fontcolor"
@@ -69,6 +71,7 @@
 
         <Button
             style="@style/Base.TextAppearance.AppCompat.Body1"
+            android:id="@+id/signin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
