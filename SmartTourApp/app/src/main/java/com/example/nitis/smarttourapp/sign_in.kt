@@ -22,67 +22,63 @@ private const val ARG_PARAM2 = "param2"
 
 class sign_in : Fragment(), View.OnClickListener {
 
-    inner class postRequest: AsyncTask<String, Void, String>(){
+    inner class postRequest : AsyncTask<String, Void, String>() {
         override fun doInBackground(vararg params: String?): String {
-            if(params[0]!=null){
-                Log.i("params1",params[1])
-                val result = MyUtility.sendHttPostRequest(params[0]!!,params[1]!!)
-                if(result == null){
+            if (params[0] != null) {
+                Log.i("params1", params[1])
+                val result = MyUtility.sendHttPostRequest(params[0]!!, params[1]!!)
+                if (result == null) {
                     return "abc"
                 }
                 return result!!
             }
             return ""
         }
+
         /**
          * After completing background task
          **/
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
-            Log.i("signin result",result)
-            if(result == "All fields are Mandatory!"){
-                Toast.makeText(activity,result.toString(),Toast.LENGTH_SHORT).show()
-            }
-            else if(result !="abc"){
-                try{
-                    val user = Gson().fromJson(result,User:: class.java)
+            Log.i("signin result", result)
+            if (result == "All fields are Mandatory!") {
+                Toast.makeText(activity, result.toString(), Toast.LENGTH_SHORT).show()
+            } else if (result != "abc") {
+                try {
+                    val user = Gson().fromJson(result, User::class.java)
                     val sharedPref = PreferenceManager.getDefaultSharedPreferences(activity)
                     //now get Editor
                     val editor = sharedPref.edit()
                     //put your value
-                    editor.putString("Uname",user.name)
-                    editor.putString("Uemail",user.email)
-                    editor.putString("Ucontact",user.contact)
+                    editor.putString("Uname", user.name)
+                    editor.putString("Uemail", user.email)
+                    editor.putString("Ucontact", user.contact)
 
                     //commits your edits
                     editor.commit()
                     val homeActivity = Intent(activity, HomeActivity::class.java)
                     startActivity(homeActivity)
-                }
-                catch (e:Exception){
-                    Toast.makeText(activity,result,Toast.LENGTH_SHORT).show()
+                } catch (e: Exception) {
+                    Toast.makeText(activity, result, Toast.LENGTH_SHORT).show()
                 }
 
-            }
-            else{
-                Toast.makeText(activity,"something went wrong",Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(activity, "something went wrong", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     override fun onClick(p0: View?) {
-        when (p0?.getId())
-        {
-            R.id.signin->{
-               // Toast.makeText(activity,"hello",Toast.LENGTH_SHORT).show()
+        when (p0?.getId()) {
+            R.id.signin -> {
+                // Toast.makeText(activity,"hello",Toast.LENGTH_SHORT).show()
                 val email = signin_email.text.toString()
                 val password = signin_pwd.text.toString()
-                val user = User(email,password,"","")
+                val user = User(email, password, "", "")
                 val task = postRequest()
                 task.execute("http://10.0.2.2:3000/signin", Gson().toJson(user))
             }
-            R.id.signUp->
-            {
+            R.id.signUp -> {
                 val signupactivity = Intent(activity, signup::class.java)
                 startActivity(signupactivity)
             }

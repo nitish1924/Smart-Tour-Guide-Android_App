@@ -11,35 +11,34 @@ import kotlinx.android.synthetic.main.activity_signup.*
 
 class signup : AppCompatActivity() {
 
-    inner class postRequest: AsyncTask<String, Void, String>(){
+    inner class postRequest : AsyncTask<String, Void, String>() {
         override fun doInBackground(vararg params: String?): String {
-            if(params[0]!=null){
-                Log.i("params1",params[1])
-                val result = MyUtility.sendHttPostRequest(params[0]!!,params[1]!!)
+            if (params[0] != null) {
+                Log.i("params1", params[1])
+                val result = MyUtility.sendHttPostRequest(params[0]!!, params[1]!!)
 
-                if(result == null){
+                if (result == null) {
                     return "abc"
                 }
                 return result!!
             }
             return ""
         }
+
         /**
          * After completing background task
          **/
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
-            Log.i("signin result",result)
-            if(result=="Registered Successfuly!"){
-                Toast.makeText(this@signup,"Registered Successfuly! Continue Login",Toast.LENGTH_SHORT).show()
+            Log.i("signin result", result)
+            if (result == "Registered Successfuly!") {
+                Toast.makeText(this@signup, "Registered Successfuly! Continue Login", Toast.LENGTH_SHORT).show()
                 val homeActivity = Intent(this@signup, MainActivity::class.java)
                 startActivity(homeActivity)
-            }
-            else if(result == "All fields are Mandatory!"){
-                Toast.makeText(this@signup,"All fields are Mandatory!", Toast.LENGTH_SHORT).show()
-            }
-            else{
-                Toast.makeText(this@signup,result, Toast.LENGTH_SHORT).show()
+            } else if (result == "All fields are Mandatory!") {
+                Toast.makeText(this@signup, "All fields are Mandatory!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this@signup, result, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -50,25 +49,22 @@ class signup : AppCompatActivity() {
         setContentView(R.layout.activity_signup)
 
 
-        signUp.setOnClickListener{
+        signUp.setOnClickListener {
             val name = signupname.text.toString()
             val email = signupemail.text.toString()
             val contact = signupcontact.text.toString()
             val password = signuppwd.text.toString()
             val cnfrmPassword = signupconfirmpwd.text.toString()
 
-            if(password!=cnfrmPassword){
-                Toast.makeText(this,"Password Do not match",Toast.LENGTH_SHORT).show()
-            }
-            else{
-                val user = User(email,password,name,contact)
+            if (password != cnfrmPassword) {
+                Toast.makeText(this, "Password Do not match", Toast.LENGTH_SHORT).show()
+            } else {
+                val user = User(email, password, name, contact)
                 val task = postRequest()
                 task.execute("http://10.0.2.2:3000/register", Gson().toJson(user))
             }
         }
     }
-
-
 
 
 }

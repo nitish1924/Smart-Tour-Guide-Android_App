@@ -13,19 +13,19 @@ import java.net.URLEncoder
 import android.os.AsyncTask
 import java.io.InputStreamReader
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         supportFragmentManager
-                .beginTransaction ()
-                .replace( R.id.frame, sign_in.newInstance(1),"kuchbhi")
+                .beginTransaction()
+                .replace(R.id.frame, sign_in.newInstance(1), "kuchbhi")
                 .addToBackStack(null)
                 .commit()
     }
-    }
+}
 
 
 

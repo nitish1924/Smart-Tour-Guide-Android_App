@@ -64,11 +64,11 @@ class MyUtility {
         // Send json data via HTTP POST Request
         fun sendHttPostRequest(urlString: String, param: String): String? {
             var httpConnection: HttpURLConnection? = null
-            var json:String? = null
+            var json: String? = null
             try {
                 val url = URL(urlString)
                 httpConnection = url.openConnection() as HttpURLConnection
-                if(httpConnection != null) {
+                if (httpConnection != null) {
                     httpConnection.setDoOutput(true)
                     httpConnection.setChunkedStreamingMode(0)
                     httpConnection.setRequestProperty("Content-Type", "application/json")
@@ -76,43 +76,43 @@ class MyUtility {
                     val out = OutputStreamWriter(httpConnection.outputStream)
                     out.write(param)
                     out.close()
-                    Log.i("hello","hello")
-                    Log.i("response code",httpConnection.responseCode.toString())
-                   if (httpConnection.responseCode == 200) {
+                    Log.i("hello", "hello")
+                    Log.i("response code", httpConnection.responseCode.toString())
+                    if (httpConnection.responseCode == 200) {
                         val stream = httpConnection.inputStream
                         val reader = BufferedReader(InputStreamReader(stream))
                         var line: String
                         val msg = StringBuilder()
                         while (true) {
-                            line = reader.readLine()?: break
+                            line = reader.readLine() ?: break
                             msg.append(line)
                             Log.d("MyDebugMsg:PostRequest", line)  // for debugging purpose
                         }
 
                         json = msg.toString()
-                       Log.i("jsonstring",json)
+                        Log.i("jsonstring", json)
                         reader.close()
-                       // Log.d("MyDebugMsg:PostRequest", "POST request returns ok")
-                   } else{
-                       val stream = httpConnection.inputStream
-                       val reader = BufferedReader(InputStreamReader(stream))
-                       var line: String
-                       val msg = StringBuilder()
-                       while (true) {
-                           line = reader.readLine()?: break
-                           msg.append(line)
-                           Log.d("MyDebugMsg:PostRequest", line)  // for debugging purpose
-                       }
+                        // Log.d("MyDebugMsg:PostRequest", "POST request returns ok")
+                    } else {
+                        val stream = httpConnection.inputStream
+                        val reader = BufferedReader(InputStreamReader(stream))
+                        var line: String
+                        val msg = StringBuilder()
+                        while (true) {
+                            line = reader.readLine() ?: break
+                            msg.append(line)
+                            Log.d("MyDebugMsg:PostRequest", line)  // for debugging purpose
+                        }
 
-                       json = msg.toString()
-                       reader.close()
-                   }
-                       // Log.d("MyDebugMsg:PostRequest", "POST request returns error")
+                        json = msg.toString()
+                        reader.close()
+                    }
+                    // Log.d("MyDebugMsg:PostRequest", "POST request returns error")
                 }
             } catch (ex: Exception) {
                 Log.d("MyDebugMsg", "Exception in sendHttpPostRequest")
                 ex.printStackTrace()
-            }finally {
+            } finally {
                 if (httpConnection != null)
                     httpConnection.disconnect()
             }
