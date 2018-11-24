@@ -4,9 +4,7 @@ import android.content.Intent
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.util.Log
-import android.widget.Button
 import android.widget.Toast
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_signup.*
@@ -32,12 +30,16 @@ class signup : AppCompatActivity() {
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
             Log.i("signin result",result)
-            if(result !="abc"){
+            if(result=="Registered Successfuly!"){
+                Toast.makeText(this@signup,"Registered Successfuly! Continue Login",Toast.LENGTH_SHORT).show()
                 val homeActivity = Intent(this@signup, MainActivity::class.java)
                 startActivity(homeActivity)
             }
+            else if(result == "All fields are Mandatory!"){
+                Toast.makeText(this@signup,"All fields are Mandatory!", Toast.LENGTH_SHORT).show()
+            }
             else{
-                Toast.makeText(this@signup,"Something went wrong", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@signup,result, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -53,11 +55,16 @@ class signup : AppCompatActivity() {
             val email = signupemail.text.toString()
             val contact = signupcontact.text.toString()
             val password = signuppwd.text.toString()
+            val cnfrmPassword = signupconfirmpwd.text.toString()
 
-            val user = User(email,password,name,contact)
-            val task = postRequest()
-            task.execute("http://10.0.2.2:3000/register", Gson().toJson(user))
-
+            if(password!=cnfrmPassword){
+                Toast.makeText(this,"Password Do not match",Toast.LENGTH_SHORT).show()
+            }
+            else{
+                val user = User(email,password,name,contact)
+                val task = postRequest()
+                task.execute("http://10.0.2.2:3000/register", Gson().toJson(user))
+            }
         }
     }
 

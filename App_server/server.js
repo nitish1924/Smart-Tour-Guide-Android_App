@@ -21,22 +21,11 @@ const auth =firebase.auth();
 
 //end------firebase connect
 
-const insert = ()=>{
-	db.ref('demo').push({ // set can be used instead of push
-    username: "name",
-    email: "email",
-    profile_picture : "imageUrl"
-  });
-}
-
-//insert();
-
-
 app.post('/register',(req,res)=>{
 	//return res.json("hello")
 	const{email,name,password,contact} = req.body; //destructuring
 	if(!email||!name||!password||!contact){ // checking blank fields
-		return res.status(400).json('All fields are Mandatory!');
+		return res.send('All fields are Mandatory!');
 	}
 	auth.createUserWithEmailAndPassword(email, password)
 	.then(user=>user.user.uid)
@@ -48,8 +37,8 @@ app.post('/register',(req,res)=>{
 		    contact:contact
   		})
 	})
-	.then(data=>res.json("Registered Successfuly!"))
-	.catch((error) => res.status(400).json(error.message));
+	.then(data=>res.send("Registered Successfuly!"))
+	.catch((error) => res.send(error.message));
 });
 
 app.post('/signin',(req,res)=>{
@@ -58,7 +47,8 @@ app.post('/signin',(req,res)=>{
 	console.log(req.body);
 	const{email,password} = req.body; //destructuring
 	if(!email||!password){ // checking blank fields
-		return res.status(400).json('All fields are Mandatory!');
+		
+		return res.send("All fields are Mandatory!");
 	}
 	var name =  "";
 	var email1 ="";
@@ -79,12 +69,12 @@ app.post('/signin',(req,res)=>{
 		});
 	})
 	.catch((error)=>{
-		return res.status(400).json(error.message);
+		return res.send(error.message);
 	});
 });
 
 
 
-app.get('/testGet',(req,res)=>(res.json("Bingo!!!..working")));
+//app.get('/testGet',(req,res)=>(res.json("Bingo!!!..working")));
 
 app.listen(3000,(a,b)=>{console.log('running at port 3000')})
