@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import android.os.AsyncTask
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -17,6 +18,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_home.*
 
 private const val PERMISSION_REQUEST = 10
@@ -27,23 +29,21 @@ class HomeActivity : AppCompatActivity() {
     private var hasNetwork = false
     private var locationGps: Location? = null
     private var locationNetwork: Location? = null
-
     private var permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        setSupportActionBar(homeactivitytoolbar)
-        val appbar = supportActionBar
-        appbar!!.title = "Welcome"
 
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
         val Uname = sharedPref.getString("Uname", "Not Available")
         val Uemail = sharedPref.getString("Uemail", "Not Available")
 
-//        nameText.text = Uname
-//        emailText.text = Uemail
+        setSupportActionBar(homeactivitytoolbar)
+        val appbar = supportActionBar
+        appbar!!.title = "Welcome "+ Uname
+
 
         disableView()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -80,7 +80,7 @@ class HomeActivity : AppCompatActivity() {
 
             if (hasGps) {
                 Log.d("CodeAndroidLocation", "hasGps")
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0F, object : LocationListener {
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 300000, 0F, object : LocationListener {
                     override fun onLocationChanged(location: Location?) {
                         if (location != null) {
                             locationGps = location
@@ -201,6 +201,34 @@ class HomeActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    inner class getJson : AsyncTask<String, Void, String>() {
+        override fun doInBackground(vararg params: String?): String {
+            if (params[0] != null) {
+                val result = MyUtility.downloadJSONusingHTTPGetRequest(params[0]!!)
+                if (result == null) {
+                    return "abc"
+                }
+                return result!!
+            }
+            return ""
+        }
+
+        /**
+         * After completing background task
+         **/
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+            Log.i("json received",result)
+            val data= Gson().fromJson(result, Venues::class.java)
+            Log.i("data",data.toString())
+            var list=data.response!!.venues!!.toList()
+
+           for(place in list){
+               Log.i("place",place.toString())
+           }
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         when (item?.itemId) {
@@ -209,7 +237,11 @@ class HomeActivity : AppCompatActivity() {
 
             }
             R.id.cafe -> {
+               // var longitude:String=locationGps!!.longitude.toString()
+              //  var latitude:String=locationGps!!.latitude.toString()
 
+                val task =getJson()
+                task.execute("https://api.foursquare.com/v2/venues/search?client_id=ON4ZCKAUD3ANSCVZ3TCS5Y1002ZZ4RAZDSYWWSTJTXQDQR4G&client_secret=IRJ4NU32WTIHZBGYMBQELV41SKRZN2SMG0V4KV0GNBRYSZ0I&ll=40.7,-74&query=sushi&v=20181124")
 
             }
             R.id.food -> {

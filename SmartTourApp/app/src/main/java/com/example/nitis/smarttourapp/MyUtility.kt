@@ -21,6 +21,7 @@ class MyUtility {
                 val url = URL(urlString)
 
                 val httpConnection = url.openConnection() as HttpURLConnection
+                httpConnection.setRequestProperty("Content-Type", "application/json")
                 if (httpConnection.responseCode == HttpURLConnection.HTTP_OK) {
                     val stream = httpConnection.inputStream
                     jsonString = getStringfromStream(stream)
