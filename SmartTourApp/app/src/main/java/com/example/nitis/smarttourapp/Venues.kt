@@ -63,8 +63,8 @@ data class Location(
         @SerializedName("distance")val distance: Int?,
         @SerializedName("formattedAddress")val formattedAddress: List<String?>?,
         @SerializedName("labeledLatLngs")val labeledLatLngs: List<LabeledLatLng?>?,
-        @SerializedName("lat") val lat: Double?,
-        @SerializedName("lng") val lng: Double?,
+        @SerializedName("lat") var lat: Double?,
+        @SerializedName("lng") var lng: Double?,
         @SerializedName("postalCode")val postalCode: String?,
         @SerializedName("state") val state: String?
 )
@@ -78,24 +78,3 @@ data class Meta(
         @SerializedName("code")val code: Int?,
         @SerializedName("requestId") val requestId: String?
 )
-
-
-
-
-//data class Venues(
-//        @SerializedName("code")val code:Int?,
-//        @SerializedName("hasPerk")val hasPerk: Boolean?,
-//        @SerializedName("id")val id: String?,
-//        @SerializedName("name")val name: String?,
-//        @SerializedName("referralId")val referralId: String?,
-//        @SerializedName("address")val address: String?,
-//        @SerializedName("cc")val cc: String?,
-//        @SerializedName("city")val city: String?,
-//        @SerializedName("country")val country: String?,
-//        @SerializedName("distance")val distance: Int?,
-//        @SerializedName("formattedAddress")val formattedAddress: List<String>?,
-//        @SerializedName("lat")val lat: Double?,
-//        @SerializedName("lng")val lng: Double?,
-//        @SerializedName("postalCode")val postalCode: String?,
-//        @SerializedName("state")val state: String?
-//):Serializable
