@@ -1,143 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".signup"
-    android:background="@color/bgcolor">
+    android:background="@drawable/third">
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="310dp"
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:padding="16dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/logo"/>
+            android:src="@drawable/frog"/>
 
-            <EditText
-                android:id="@+id/signupname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:background="@android:color/transparent"
-                android:drawablePadding="12dp"
-                android:padding="5dp"
-                android:hint="Name"
-                android:textColorHint="@color/temp"
-                android:maxLines="1"
-                android:drawableLeft="@drawable/ic_person_black_24dp"
-                android:layout_marginTop="40dp"
-                android:textColor="@color/fontcolor"/>
+        <EditText
+            android:id="@+id/signupname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:background="@android:color/transparent"
+            android:drawablePadding="12dp"
+            android:padding="5dp"
+            android:hint="Name"
+            android:textColorHint="@color/fontcolor"
+            android:maxLines="1"
+            android:drawableLeft="@drawable/ic_person_black_24dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/fontcolor"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#f9d7db"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/fontcolor"/>
 
-            <EditText
-                android:id="@+id/signupcontact"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPhonetic"
-                android:background="@android:color/transparent"
-                android:drawablePadding="12dp"
-                android:padding="5dp"
-                android:hint="Contact"
-                android:textColorHint="@color/temp"
-                android:textColor="@color/fontcolor"
-                android:maxLines="1"
-                android:drawableLeft="@drawable/ic_contact_phone_black_24dp"
-                android:layout_marginTop="40dp"/>
+        <EditText
+            android:id="@+id/signupcontact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPhonetic"
+            android:background="@android:color/transparent"
+            android:drawablePadding="12dp"
+            android:padding="5dp"
+            android:hint="Contact"
+            android:textColorHint="@color/fontcolor"
+            android:textColor="@color/fontcolor"
+            android:maxLines="1"
+            android:drawableLeft="@drawable/ic_contact_phone_black_24dp"
+            android:layout_marginTop="40dp"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#f9d7db"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/fontcolor"/>
 
-            <EditText
-                android:id="@+id/signupemail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:background="@android:color/transparent"
-                android:drawablePadding="12dp"
-                android:textColor="@color/fontcolor"
-                android:padding="5dp"
-                android:hint="Email"
-                android:textColorHint="@color/temp"
-                android:maxLines="1"
-                android:drawableLeft="@drawable/ic_email_black_24dp"
-                android:layout_marginTop="40dp"/>
+        <EditText
+            android:id="@+id/signupemail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:background="@android:color/transparent"
+            android:drawablePadding="12dp"
+            android:textColor="@color/fontcolor"
+            android:padding="5dp"
+            android:hint="Email"
+            android:textColorHint="@color/fontcolor"
+            android:maxLines="1"
+            android:drawableLeft="@drawable/ic_email_black_24dp"
+            android:layout_marginTop="40dp"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#f9d7db"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/fontcolor"/>
 
-            <EditText
-                android:id="@+id/signuppwd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:background="@android:color/transparent"
-                android:drawableLeft="@drawable/ic_lock_open_black_24dp"
-                android:drawablePadding="12dp"
-                android:ems="20"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:padding="8dp"
-                android:textColor="@color/fontcolor"
-                android:textColorHint="@color/temp" />
+        <EditText
+            android:id="@+id/signuppwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/ic_lock_open_black_24dp"
+            android:drawablePadding="12dp"
+            android:ems="20"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="8dp"
+            android:textColor="@color/fontcolor"
+            android:textColorHint="@color/fontcolor" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#f9d7db" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/fontcolor" />
 
 
 
-            <EditText
-                android:id="@+id/signupconfirmpwd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:background="@android:color/transparent"
-                android:drawableLeft="@drawable/ic_lock_open_black_24dp"
-                android:drawablePadding="12dp"
-                android:ems="20"
-                android:hint="Confirm Password"
-                android:inputType="textPassword"
-                android:padding="8dp"
-                android:textColor="@color/fontcolor"
-                android:textColorHint="@color/temp" />
+        <EditText
+            android:id="@+id/signupconfirmpwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/ic_lock_open_black_24dp"
+            android:drawablePadding="12dp"
+            android:ems="20"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            android:padding="8dp"
+            android:textColor="@color/fontcolor"
+            android:textColorHint="@color/fontcolor" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#f9d7db" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/fontcolor" />
 
-            <Button
-                android:id="@+id/signUp"
-                style="@style/Base.TextAppearance.AppCompat.Body1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:background="@drawable/roundbutton"
-                android:clickable="true"
-                android:padding="16dp"
-                android:text="Sign Up"
-                android:textAllCaps="false"
-                android:textColor="#000"
-                android:textStyle="bold" />
+        <Button
+            android:id="@+id/signUp"
+            style="@style/Base.TextAppearance.AppCompat.Body1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/roundbutton"
+            android:clickable="true"
+            android:padding="16dp"
+            android:text="Sign Up"
+            android:textAllCaps="false"
+            android:textColor="@color/fontcolor"
+            android:textStyle="bold" />
 
-        </LinearLayout>
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
 

@@ -83,18 +83,17 @@ class HomeFragment : Fragment(), OnClickListener {
             enableView(myview)
         }
 
-        try{
+        try {
             longitude = sharedPref.getString("currentLong", locationGps!!.longitude.toString())
-            latitude = sharedPref.getString("currentLat",locationGps!!.latitude.toString())
+            latitude = sharedPref.getString("currentLat", locationGps!!.latitude.toString())
 
-            Log.i("try long",longitude)
-            Log.i("try lat",latitude)
-        }
-        catch(e:Exception){
-            longitude=locationGps!!.longitude.toString()
-            latitude=locationGps!!.latitude.toString()
-            Log.i("catch",longitude)
-            Log.i("catch",latitude)
+            Log.i("try long", longitude)
+            Log.i("try lat", latitude)
+        } catch (e: Exception) {
+            longitude = locationGps!!.longitude.toString()
+            latitude = locationGps!!.latitude.toString()
+            Log.i("catch", longitude)
+            Log.i("catch", latitude)
         }
 
 
@@ -105,8 +104,6 @@ class HomeFragment : Fragment(), OnClickListener {
         myview.Bmovies.setOnClickListener(this)
         myview.Bshopping.setOnClickListener(this)
         myview.mylocationbtn.setOnClickListener(this)
-
-
 
         return myview
     }
@@ -148,35 +145,41 @@ class HomeFragment : Fragment(), OnClickListener {
 
             if (hasGps) {
                 Log.d("CodeAndroidLocation", "hasGps")
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 300000, 0F, object : LocationListener {
-                    override fun onLocationChanged(location: Location?) {
-                        if (location != null) {
-                            locationGps = location
+                try {
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 300000, 0F, object : LocationListener {
+                        override fun onLocationChanged(location: Location?) {
+                            if (location != null) {
+                                locationGps = location
 //                            myresult.append("\nGPS ")
 //                            myresult.append("\nLatitude : " + locationGps!!.latitude)
 //                            myresult.append("\nLongitude : " + locationGps!!.longitude)
-                            Log.d("CodeAndroidLocation", " GPS Latitude : " + locationGps!!.latitude)
-                            Log.d("CodeAndroidLocation", " GPS Longitude : " + locationGps!!.longitude)
+                                Log.d("CodeAndroidLocation", " GPS Latitude : " + locationGps!!.latitude)
+                                Log.d("CodeAndroidLocation", " GPS Longitude : " + locationGps!!.longitude)
+                            }
                         }
-                    }
 
-                    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+                        override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
 
-                    }
+                        }
 
-                    override fun onProviderEnabled(provider: String?) {
+                        override fun onProviderEnabled(provider: String?) {
 
-                    }
+                        }
 
-                    override fun onProviderDisabled(provider: String?) {
+                        override fun onProviderDisabled(provider: String?) {
 
-                    }
+                        }
 
-                })
+                    })
 
-                val localGpsLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-                if (localGpsLocation != null)
-                    locationGps = localGpsLocation
+                    val localGpsLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                    if (localGpsLocation != null)
+                        locationGps = localGpsLocation
+                } catch (e: Exception) {
+
+                }
+
+
             }
             if (hasNetwork) {
                 Log.d("CodeAndroidLocation", "hasGps")
@@ -262,9 +265,7 @@ class HomeFragment : Fragment(), OnClickListener {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.menu, menu)
-    }
+
 
     inner class getJson : AsyncTask<String, Void, String>() {
         override fun doInBackground(vararg params: String?): String {
@@ -300,34 +301,19 @@ class HomeFragment : Fragment(), OnClickListener {
             } catch (e: Exception) {
                 Toast.makeText(activity, "Nothing Nearby...Change location & Search!!", Toast.LENGTH_SHORT).show()
             }
-
-
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         when (item?.itemId) {
-            R.id.top_picks -> {
-
-
-            }
-            R.id.cafe -> {
-
-
-            }
-            R.id.food -> {
-
-            }
-
-            R.id.nightlife -> {
-
-            }
-            R.id.shopping -> {
-
-            }
-            R.id.movies -> {
-
+            R.id.home_logout -> {
+                val sharedpreferences = PreferenceManager.getDefaultSharedPreferences(activity)
+                val editor = sharedpreferences.edit()
+                editor.clear()
+                editor.commit()
+                val changeActivity = Intent(activity, MainActivity::class.java)
+                startActivity(changeActivity)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -344,7 +330,7 @@ class HomeFragment : Fragment(), OnClickListener {
                 executeURL()
             }
             R.id.BNight_Life -> {
-                query = "nightlife"
+                query = "bar"
                 executeURL()
             }
             R.id.Bcafe -> {
@@ -352,7 +338,7 @@ class HomeFragment : Fragment(), OnClickListener {
                 executeURL()
             }
             R.id.Bmovies -> {
-                query = "movies"
+                query = "cinema"
                 executeURL()
             }
             R.id.Bshopping -> {
@@ -369,8 +355,8 @@ class HomeFragment : Fragment(), OnClickListener {
     }
 
     fun executeURL() {
-        Log.i("long",longitude)
-        Log.i("lat",latitude)
+        Log.i("long", longitude)
+        Log.i("lat", latitude)
         if (query != "" || query != null) {
             val task = getJson()
             task.execute("https://api.foursquare.com/v2/venues/search?client_id=" + clientId + "&client_secret=" + clientSecret + "&ll=" + longitude + "," + latitude + "&query=" + query + "&v=20181124")

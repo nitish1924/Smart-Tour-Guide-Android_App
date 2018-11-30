@@ -1,29 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/top_picks"
-        android:src="@drawable/ic_toppicks"
-        android:title="Top Picks" />
-
-    <item android:id="@+id/food"
-        android:src="@drawable/ic_food"
-        android:title="Food" />
-
-    <item android:id="@+id/cafe"
-        android:src="@drawable/ic_cafe"
-        android:title="Cafe"
-        />
-
-    <item android:id="@+id/nightlife"
-        android:src="@drawable/ic_nightlife"
-        android:title="Night Life" />
-
-    <item android:id="@+id/shopping"
-
-        android:src="@drawable/ic_shopping"
-        android:title="Shopping" />
-
-    <item android:id="@+id/movies"
-        android:src="@drawable/ic_movies"
-        android:title="Movies" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/home_logout"
+        android:src="@drawable/logout"
+        android:title="Log Out" />
 </menu>
