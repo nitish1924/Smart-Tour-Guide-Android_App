@@ -55,7 +55,6 @@ class signup : AppCompatActivity() {
             val contact = signupcontact.text.toString()
             val password = signuppwd.text.toString()
             val cnfrmPassword = signupconfirmpwd.text.toString()
-
             if (password != cnfrmPassword) {
                 Toast.makeText(this, "Password Do not match", Toast.LENGTH_SHORT).show()
             } else {

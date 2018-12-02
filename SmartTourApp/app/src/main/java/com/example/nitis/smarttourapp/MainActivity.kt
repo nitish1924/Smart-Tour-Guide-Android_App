@@ -25,6 +25,14 @@ class MainActivity : AppCompatActivity() {
                 .addToBackStack(null)
                 .commit()
     }
+
+    override fun onBackPressed() {
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.frame, sign_in.newInstance(1), "kuchbhi")
+                .addToBackStack(null)
+                .commit()
+    }
 }
 
 

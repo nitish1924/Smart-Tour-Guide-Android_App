@@ -21,16 +21,16 @@ import android.preference.PreferenceManager
 class ChangeLocationActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
-    var long1=""
-    var lat1=""
+    var long1 = ""
+    var lat1 = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_location)
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
         //now get Editor
         val editor = sharedPref.edit()
-        long1 = getIntent().getExtras().getString("longitude","0")
-        lat1 =getIntent().getExtras().getString("latitude","0")
+        long1 = intent.extras.getString("longitude", "0")
+        lat1 = intent.extras.getString("latitude", "0")
 
         editor.putString("currentLong", long1)
         editor.putString("currentLat", lat1)
@@ -40,7 +40,7 @@ class ChangeLocationActivity : AppCompatActivity(), OnMapReadyCallback {
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        searchBtn.setOnClickListener{
+        searchBtn.setOnClickListener {
             val location = search.text.toString()
             var addressList: List<Address>? = null
             if (location != null || location != "") {
@@ -52,13 +52,10 @@ class ChangeLocationActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
                 try {
                     var address = addressList!![0]
-                    var temp = Location(LocationManager.GPS_PROVIDER,"","","",0,null,null,null,null,null,null)
-                    temp.lat=address.latitude
-                    temp.lng=address.longitude
-                    if(address.latitude!=null&&address.longitude!=null){
-//                        long1=address.longitude.toString()
-//                        lat1=address.latitude.toString()
-
+                    var temp = Location(LocationManager.GPS_PROVIDER, "", "", "", 0, null, null, null, null, null, null)
+                    temp.lat = address.latitude
+                    temp.lng = address.longitude
+                    if (address.latitude != null && address.longitude != null) {
                         //put your value
                         editor.putString("currentLong", address.latitude.toString())
                         editor.putString("currentLat", address.longitude.toString())
@@ -74,9 +71,7 @@ class ChangeLocationActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         doneBtn.setOnClickListener {
-            val changeActivity = Intent(this,HomeActivity::class.java)
-//            changeActivity.putExtra("longMap",long1!!)
-//            changeActivity.putExtra("latMap",lat1!!)
+            val changeActivity = Intent(this, HomeActivity::class.java)
             startActivity(changeActivity)
         }
     }
@@ -90,15 +85,6 @@ class ChangeLocationActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 

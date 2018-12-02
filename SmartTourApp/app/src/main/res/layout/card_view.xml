@@ -14,7 +14,7 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/movieImage"
+        android:id="@+id/venueImage"
         android:layout_width="0dp"
         android:paddingLeft="10dp"
         android:layout_height="150dp"
@@ -33,6 +33,35 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="TextView" />
+        <TextView
+            android:id="@+id/description"
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="TextView" />
+        <TextView
+            android:id="@+id/open"
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="TextView" />
+        <TextView
+            android:id="@+id/rating"
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="TextView" />
+        <TextView
+            android:id="@+id/photoUrl"
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="TextView" />
+
 
         <TextView
             android:id="@+id/address"

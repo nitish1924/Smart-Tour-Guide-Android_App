@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailsFragemnt"
+    android:orientation="vertical"
+    android:background="@drawable/third">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/detailfragimage"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:src="@drawable/frog" />
+            <TextView
+                android:id="@+id/detailfradaddress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="15dp"
+                android:textColor="@color/fontcolor"
+                android:text="Address: " />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/detailfragname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:textColor="@color/fontcolor"
+                android:text="Name: " />
+
+            <TextView
+                android:id="@+id/detailfragdescription"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="15dp"
+                android:textColor="@color/fontcolor"
+                android:text="Description: " />
+
+
+            <TextView
+                android:id="@+id/detailfragcontact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:textColor="@color/fontcolor"
+                android:text="Contact: " />
+
+            <RatingBar
+                android:id="@+id/detailfragrating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:numStars="5"
+                android:stepSize="0.1"
+                android:isIndicator="true"
+                android:textColor="@color/fontcolor"
+                android:padding="15dp"
+                android:textSize="9dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="230dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*Weather Report*"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="@color/fontcolor"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/detailfragtemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/fontcolor"
+            android:text="Temperature: "
+            />
+
+        <TextView
+            android:id="@+id/detailfragtempdesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/fontcolor"
+            android:text="Description: "
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="380dp">
+        <Button
+            android:id="@+id/navigateBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Navigate"/>
+        <fragment
+            android:id="@+id/detailsMap"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            class="com.google.android.gms.maps.SupportMapFragment"
+            tools:context="com.example.nitis.smarttourapp.ChangeLocationActivity"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+

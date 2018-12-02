@@ -4,8 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.getIntent
-import android.content.Intent.getIntentOld
 import android.location.Location
 import android.location.LocationManager
 import android.content.pm.PackageManager
@@ -17,19 +15,16 @@ import android.preference.PreferenceManager
 import android.provider.Settings
 import android.util.Log
 import android.support.v4.app.Fragment
-import android.support.v4.content.PermissionChecker.checkCallingOrSelfPermission
 import android.support.v7.app.AppCompatActivity
 import android.view.*
+import android.view.Menu
 import android.view.View.OnClickListener
 import android.widget.Toast
-import android.widget.Toolbar
-import com.example.nitis.smarttourapp.R.id.homeactivitytoolbar
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 private const val PERMISSION_REQUEST = 10
-
 
 class HomeFragment : Fragment(), OnClickListener {
     lateinit var locationManager: LocationManager
@@ -38,12 +33,13 @@ class HomeFragment : Fragment(), OnClickListener {
     private var locationGps: Location? = null
     private var locationNetwork: Location? = null
     private var permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
-
     private val clientId = "ON4ZCKAUD3ANSCVZ3TCS5Y1002ZZ4RAZDSYWWSTJTXQDQR4G"
     private val clientSecret = "IRJ4NU32WTIHZBGYMBQELV41SKRZN2SMG0V4KV0GNBRYSZ0I"
     private var query = ""
     private var longitude = ""
     private var latitude = ""
+    private var masterList = ArrayList<Venue?>()
+    private var detailsData = ArrayList<DetailsData>()
 
     companion object {
         private val ARG_PASS = "random"
@@ -90,12 +86,22 @@ class HomeFragment : Fragment(), OnClickListener {
             Log.i("try long", longitude)
             Log.i("try lat", latitude)
         } catch (e: Exception) {
+
+            // ==================================== //null pointer exception sometimes===========================================================
+
+
             longitude = locationGps!!.longitude.toString()
             latitude = locationGps!!.latitude.toString()
             Log.i("catch", longitude)
             Log.i("catch", latitude)
         }
+        getWeather().execute("https://api.openweathermap.org/data/2.5/weather?lat="+longitude+"&lon="+latitude+"&appid=43ca8af9d4bfa71d55815e0c9ca37218&units=imperial")
 
+        val editor = sharedPref.edit()
+
+        editor.putString("GPSLong", locationGps!!.latitude.toString())
+        editor.putString("GPSLat", locationGps!!.longitude.toString())
+        editor.commit()
 
         myview.BNight_Life.setOnClickListener(this)
         myview.BTop_picks.setOnClickListener(this)
@@ -106,6 +112,32 @@ class HomeFragment : Fragment(), OnClickListener {
         myview.mylocationbtn.setOnClickListener(this)
 
         return myview
+    }
+    inner class getWeather : AsyncTask<String, Void, String>() {
+        override fun doInBackground(vararg params: String?): String {
+            if (params[0] != null) {
+                val result = MyUtility.downloadJSONusingHTTPGetRequest(params[0]!!)
+                if (result == null) {
+                    return "abc"
+                }
+                return result!!
+            }
+            return ""
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+            Log.i("json weather", result)
+            try{
+                val data = Gson().fromJson(result, WeatherData::class.java)
+                homedesc.text=data.weather!![0]!!.description
+                hometemp.text= data.main!!.temp.toString()
+            }
+            catch (e:Exception){
+                e.printStackTrace()
+            }
+
+        }
     }
 
 
@@ -150,9 +182,6 @@ class HomeFragment : Fragment(), OnClickListener {
                         override fun onLocationChanged(location: Location?) {
                             if (location != null) {
                                 locationGps = location
-//                            myresult.append("\nGPS ")
-//                            myresult.append("\nLatitude : " + locationGps!!.latitude)
-//                            myresult.append("\nLongitude : " + locationGps!!.longitude)
                                 Log.d("CodeAndroidLocation", " GPS Latitude : " + locationGps!!.latitude)
                                 Log.d("CodeAndroidLocation", " GPS Longitude : " + locationGps!!.longitude)
                             }
@@ -187,9 +216,6 @@ class HomeFragment : Fragment(), OnClickListener {
                     override fun onLocationChanged(location: Location?) {
                         if (location != null) {
                             locationNetwork = location
-//                            myresult.append("\nNetwork ")
-//                            myresult.append("\nLatitude : " + locationNetwork!!.latitude)
-//                            myresult.append("\nLongitude : " + locationNetwork!!.longitude)
                             Log.d("CodeAndroidLocation", " Network Latitude : " + locationNetwork!!.latitude)
                             Log.d("CodeAndroidLocation", " Network Longitude : " + locationNetwork!!.longitude)
                         }
@@ -265,6 +291,73 @@ class HomeFragment : Fragment(), OnClickListener {
         }
     }
 
+    inner class getDetailList : AsyncTask<String, Void, String>() {
+        var pos = 0
+        override fun doInBackground(vararg params: String?): String {
+            pos = params[1]!!.toInt()
+            if (params[0] != null) {
+                val result = MyUtility.downloadJSONusingHTTPGetRequest(params[0]!!)
+                if (result == null) {
+                    return "abc"
+                }
+                return result!!
+            }
+            return ""
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+            Log.i("details json received", result)
+
+            if (result != "abc") {
+                val data = Gson().fromJson(result, DetailsData::class.java)
+                Log.i("Nitishdata", data.toString())
+
+                detailsData.add(data)
+            }
+
+
+
+            for (place in masterList) {
+                Log.i("place", place.toString())
+            }
+            if (pos == masterList.size - 1) {
+                var count = 0
+                for (venue in masterList) {
+                    for (details in detailsData) {
+                        Log.i("Ndesc", details.toString())
+                        if (venue!!.id == details.response!!.venue!!.id) {
+                            try {
+                                // masterList[count]!!.description = details.response!!.venue!!.description
+                                venue.description = details.response!!.venue!!.tips!!.groups!![0]!!.items!![0]!!.text
+                                venue.isOpen = details.response!!.venue!!.popular!!.isOpen.toString()
+                                venue.rating = details.response!!.venue!!.rating.toString()
+                                venue.contact = details.response!!.venue!!.contact!!.phone
+                                venue.photoUrl = details.response!!.venue!!.bestPhoto!!.prefix + "600x500" + details.response!!.venue!!.bestPhoto!!.suffix
+                                Log.i("desc", venue.rating)
+                            } catch (e: java.lang.Exception) {
+                                e.printStackTrace()
+                            }
+
+                        } else {
+                            venue.description = "Description Not Available"
+                        }
+
+                    }
+                    count++
+
+                }
+                for (venue in masterList) {
+                    //Log.i("nitish", venue!!.toString())
+                }
+                val transaction = activity!!.supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.homeframe, RecyclerViewFragment.newInstance(masterList), "hdd")
+                transaction.addToBackStack(null)
+                transaction.commit()
+            }
+
+        }
+    }
 
 
     inner class getJson : AsyncTask<String, Void, String>() {
@@ -282,19 +375,35 @@ class HomeFragment : Fragment(), OnClickListener {
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
             Log.i("json received", result)
+            var tempList = ArrayList<Venue?>()
             try {
+                if (masterList.size > 0) {
+                    tempList.removeAll(tempList)
+                    masterList.removeAll(masterList)
+                    detailsData.removeAll(detailsData)
+                }
                 val data = Gson().fromJson(result, Venues::class.java)
                 Log.i("data", data.toString())
-                var list = data.response!!.venues!!.toList()
-
-                for (place in list) {
+                tempList = ArrayList(data.response!!.venues!!.toList())
+                var m = 0
+                for (list in tempList) {
+                    if (m < 5) {
+                        masterList.add(list)
+                    }
+                    m++
+                }
+                for (place in masterList) {
                     Log.i("place", place.toString())
                 }
-                if (list.size > 0) {
-                    val transaction = activity!!.supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.homeframe, RecyclerViewFragment.newInstance(ArrayList(list)), "hdd")
-                    transaction.addToBackStack(null)
-                    transaction.commit()
+                var pos = 0
+                if (masterList.size > 0) {
+                    for (venue in masterList) {
+                        val venueId = venue!!.id
+                        val url = "https://api.foursquare.com/v2/venues/" + venueId + "?client_id=ON4ZCKAUD3ANSCVZ3TCS5Y1002ZZ4RAZDSYWWSTJTXQDQR4G&client_secret=IRJ4NU32WTIHZBGYMBQELV41SKRZN2SMG0V4KV0GNBRYSZ0I&v=20181124"
+                        getDetailList().execute(url, pos.toString())
+                        pos++
+                    }
+
                 } else {
                     Toast.makeText(activity, "Nothing Nearby...Change location & Search!!", Toast.LENGTH_SHORT).show()
                 }
@@ -302,6 +411,11 @@ class HomeFragment : Fragment(), OnClickListener {
                 Toast.makeText(activity, "Nothing Nearby...Change location & Search!!", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -359,7 +473,7 @@ class HomeFragment : Fragment(), OnClickListener {
         Log.i("lat", latitude)
         if (query != "" || query != null) {
             val task = getJson()
-            task.execute("https://api.foursquare.com/v2/venues/search?client_id=" + clientId + "&client_secret=" + clientSecret + "&ll=" + longitude + "," + latitude + "&query=" + query + "&v=20181124")
+            task.execute("https://api.foursquare.com/v2/venues/search?client_id=" + clientId + "&client_secret=" + clientSecret + "&ll=" + longitude + "," + latitude + "&query=" + query + "&v=20181124&limit10")
         } else {
             Toast.makeText(activity, "Please enter your preference", Toast.LENGTH_SHORT).show()
         }
