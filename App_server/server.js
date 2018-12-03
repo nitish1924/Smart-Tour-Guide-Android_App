@@ -72,6 +72,57 @@ app.post('/signin',(req,res)=>{
 		return res.send(error.message);
 	});
 });
+app.post('/addwishlist',(req,res)=>{
+	//return res.json("hello")
+	console.log("request wishlist addwishlist");
+	console.log(req.body);
+	const{user,name,description,rating,price,contact,photoUrl,latitude,longitude,address} = req.body; //destructuring
+	db.ref("wishlist").push({ // set can be used instead of push
+			user:user,
+			name:name,
+			description:description,
+			rating:rating,
+			price:price,
+			contact:contact,
+			photoUrl:photoUrl,
+			latitude:latitude,
+			longitude:longitude,
+			address:address
+	})
+	.then(data=>res.send("wishlist saved Successfuly!"))
+	.catch((error) => res.send(error.message));
+	
+});
+app.post('/getwishlist',(req,res)=>{
+	//return res.json("hello")
+	console.log("request getwishlist");
+	console.log(req.body);
+	const{user} = req.body; //destructuring
+	var responseArray=[];
+	db.ref('wishlist').once("value")
+		.then((snapshot) => {
+		    snapshot.forEach((Snapshot) => {
+		    	if(Snapshot.child('user').val()===user){
+		     	name = Snapshot.child('name').val()
+		     	description = Snapshot.child('description').val()
+		     	rating = Snapshot.child('rating').val()
+		     	price = Snapshot.child('price').val()
+		     	contact = Snapshot.child('contact').val()
+		     	photoUrl = Snapshot.child('photoUrl').val()
+		     	latitude = Snapshot.child('latitude').val()
+		     	longitude = Snapshot.child('longitude').val()
+		     	address = Snapshot.child('address').val()
+
+		  		var response = {"name":name,"description":description,"rating":rating,"price":price,"contact":contact,"photoUrl":photoUrl,"latitude":latitude,"longitude":longitude,"address":address}
+		  		responseArray.push(response)
+		     	}
+		  	});
+		  	return res.json(responseArray);
+		})
+		.catch((error)=>{return res.send(error.message)});
+	
+});
+	
 
 
 

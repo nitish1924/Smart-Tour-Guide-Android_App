@@ -23,14 +23,14 @@
                 android:id="@+id/detailfragimage"
                 android:layout_width="150dp"
                 android:layout_height="100dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
                 android:src="@drawable/frog" />
             <TextView
                 android:id="@+id/detailfradaddress"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="15dp"
+                android:padding="5dp"
                 android:textColor="@color/fontcolor"
                 android:text="Address: " />
         </LinearLayout>
@@ -43,7 +43,7 @@
                 android:id="@+id/detailfragname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
+                android:padding="5dp"
                 android:textColor="@color/fontcolor"
                 android:text="Name: " />
 
@@ -51,7 +51,7 @@
                 android:id="@+id/detailfragdescription"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="15dp"
+                android:padding="5dp"
                 android:textColor="@color/fontcolor"
                 android:text="Description: " />
 
@@ -60,7 +60,14 @@
                 android:id="@+id/detailfragcontact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
+                android:padding="5dp"
+                android:textColor="@color/fontcolor"
+                android:text="Contact: " />
+            <TextView
+                android:id="@+id/detailprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:textColor="@color/fontcolor"
                 android:text="Contact: " />
 
@@ -72,10 +79,7 @@
                 android:numStars="5"
                 android:stepSize="0.1"
                 android:isIndicator="true"
-                android:textColor="@color/fontcolor"
-                android:padding="15dp"
-                android:textSize="9dp"
-                android:textStyle="bold" />
+                />
         </LinearLayout>
     </LinearLayout>
 

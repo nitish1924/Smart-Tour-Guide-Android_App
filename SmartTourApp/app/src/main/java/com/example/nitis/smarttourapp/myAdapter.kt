@@ -1,15 +1,26 @@
 package com.example.nitis.smarttourapp
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.os.AsyncTask
+import android.preference.PreferenceManager
 import android.support.v4.app.FragmentActivity
+import android.support.v7.view.menu.MenuBuilder
+import android.support.v7.view.menu.MenuPopupHelper
+import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
+import android.util.Log
+import android.view.Gravity
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.card_view.view.*
 import java.lang.Exception
@@ -51,6 +62,7 @@ class MyAdapter(private val list: ArrayList<Venue?>, context: Context) : Recycle
         var open: TextView
         var rating: TextView
         var photoUrl: TextView
+        var overflowImage: ImageView
 
         init {
             img = v.findViewById(R.id.venueImage)
@@ -61,6 +73,7 @@ class MyAdapter(private val list: ArrayList<Venue?>, context: Context) : Recycle
             open = v.findViewById(R.id.open)
             rating = v.findViewById(R.id.rating)
             photoUrl = v.findViewById(R.id.photoUrl)
+            overflowImage = v.findViewById(R.id.overflow)
         }
     }
 
@@ -78,8 +91,29 @@ class MyAdapter(private val list: ArrayList<Venue?>, context: Context) : Recycle
 
         return MyViewHolder(itemView)
     }
+    inner class addToWishList : AsyncTask<String, Void, String>() {
+        override fun doInBackground(vararg params: String?): String {
+            if (params[0] != null) {
+                Log.i("params1", params[1])
+                val result = MyUtility.sendHttPostRequest(params[0]!!, params[1]!!)
+
+                if (result == null) {
+                    return "abc"
+                }
+                return result!!
+            }
+            return ""
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+           Toast.makeText(myContext,"Added to Wishlist",Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     // Replace the contents of a view (invoked by the layout manager)
+    @SuppressLint("RestrictedApi")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
@@ -101,6 +135,50 @@ class MyAdapter(private val list: ArrayList<Venue?>, context: Context) : Recycle
 
         holder.itemView.setOnClickListener {
             onClick!!.onItemClick(position)
+        }
+        holder.overflowImage.setOnClickListener {
+            val popup = PopupMenu(myContext !!,it)
+            val menuInflater = popup.menuInflater
+            menuInflater.inflate (R.menu.popup_menu ,popup.menu)
+            popup.setOnMenuItemClickListener{
+                when (it.itemId){
+
+                    R.id.addWishList-> {
+                        val sharedPref = PreferenceManager.getDefaultSharedPreferences(myContext)
+                        val Uemail = sharedPref.getString("Uemail", "Not Available")
+                        var data = WishList(
+                                user = Uemail,
+                                name = list[position]!!.name,
+                                description = list[position]!!.description,
+                                rating = list[position]!!.rating,
+                                price = list[position]!!.price,
+                                contact = list[position]!!.contact,
+                                photoUrl =list[position]!!.photoUrl,
+                                latitude = list[position]!!.location!!.lat.toString(),
+                                longitude = list[position]!!.location!!.lng.toString(),
+                                address = addr
+                        )
+                        var dataJson=Gson().toJson(data)
+                        try{
+                            addToWishList().execute("http://10.0.2.2:3000/addwishlist",dataJson)
+                        }
+                        catch(e:Exception){
+                            e.printStackTrace()
+                        }
+
+
+                        return@setOnMenuItemClickListener true
+                    }
+                    else ->{
+                        return@setOnMenuItemClickListener false
+                    }
+                }
+            }
+            // show icon on the popup menu !!
+            val menuHelper = MenuPopupHelper( this.myContext!! ,popup.menu as MenuBuilder,it)
+            menuHelper.setForceShowIcon (true)
+            menuHelper.gravity = Gravity.END
+            menuHelper.show()
         }
 
     }

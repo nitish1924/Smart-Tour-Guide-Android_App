@@ -35,9 +35,26 @@ class RecyclerViewFragment : Fragment(), MyAdapter.OnItemClicked {
     }
 
     override fun onItemClick(position: Int) {
-        Toast.makeText(activity, "click", Toast.LENGTH_SHORT).show()
+        var addr = ""
+        for (a in list[position]!!.location!!.formattedAddress!!) {
+            addr += a
+        }
+       var detail =WishList(
+               user = "",
+               name = list[position]!!.name,
+               description = list[position]!!.description,
+               rating = list[position]!!.rating,
+               price = list[position]!!.price,
+               contact = list[position]!!.contact,
+               photoUrl =list[position]!!.photoUrl,
+               latitude = list[position]!!.location!!.lat.toString(),
+               longitude = list[position]!!.location!!.lng.toString(),
+               address = addr
+       )
+
+
         val transaction = activity!!.supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.homeframe, DetailsFragemnt.newInstance(list[position]), "hdd")
+        transaction.replace(R.id.homeframe, DetailsFragemnt.newInstance(detail), "hdd")
         transaction.addToBackStack(null)
         transaction.commit()
     }

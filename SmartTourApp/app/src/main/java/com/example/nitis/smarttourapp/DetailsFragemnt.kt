@@ -1,6 +1,5 @@
 package com.example.nitis.smarttourapp
 
-import android.location.LocationManager
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -17,8 +16,6 @@ import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_details.view.*
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.MapFragment
-import kotlinx.android.synthetic.main.fragment_details.*
 import android.content.Intent
 import android.net.Uri
 import android.preference.PreferenceManager
@@ -30,8 +27,6 @@ private const val ARG_PARAM2 = "param2"
 class DetailsFragemnt : Fragment(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
-
-
     private var param1: String? = null
     private var param2: String? = null
     private var lati = "0"
@@ -47,17 +42,13 @@ class DetailsFragemnt : Fragment(), OnMapReadyCallback {
             param2 = it.getString(ARG_PARAM2)
         }
 
-        lati = list.location!!.lat.toString()
-        longi = list.location!!.lng.toString()
-
-//        val mapFrag = childFragmentManager.findFragmentById(R.id.detailsMap) as SupportMapFragment?
-
+        lati = list.latitude!!
+        longi = list.longitude!!
 
     }
 
     override fun onMapReady(p0: GoogleMap?) {
         mMap = p0!!
-
         // Add a marker in Sydney and move the camera
         val locOnMap = LatLng(lati.toDouble(), longi.toDouble())
         mMap.addMarker(MarkerOptions().position(locOnMap).title(list.name))
@@ -88,15 +79,13 @@ class DetailsFragemnt : Fragment(), OnMapReadyCallback {
                 e.printStackTrace()
             }
             Picasso.get().load(list.photoUrl).into(view!!.detailfragimage)
-            var addr = ""
-            for (a in list!!.location!!.formattedAddress!!) {
-                addr += a
-            }
-            view!!.detailfradaddress.text = addr
+
+            view!!.detailfradaddress.text = list.address
             view!!.detailfragname.text = list.name
             view!!.detailfragcontact.text = list.contact
             view!!.detailfragdescription.text = list.description
-            var numericRating: Float = (list.rating!!.toDouble() / 2.0f).toFloat()
+            view!!.detailprice.text = list.price
+            var numericRating: Float = (list.rating!!.toFloat() / 2.0f)
             view!!.detailfragrating.rating = numericRating
             view!!.detailfragtemp.text = temp
             view!!.detailfragtempdesc.text = tempDesc
@@ -121,10 +110,10 @@ class DetailsFragemnt : Fragment(), OnMapReadyCallback {
 
         view.navigateBtn.setOnClickListener {
             val sharedPref = PreferenceManager.getDefaultSharedPreferences(activity)
-            var sourceLatitude =sharedPref.getString("GPSLat", "0")
-            var sourceLongitude =sharedPref.getString("GPSLong", "0")
-            var destinationLatitude =lati
-            var destinationLongitude =longi
+            var sourceLatitude = sharedPref.getString("GPSLat", "0")
+            var sourceLongitude = sharedPref.getString("GPSLong", "0")
+            var destinationLatitude = lati
+            var destinationLongitude = longi
             val uri = "http://maps.google.com/maps?saddr=$sourceLatitude,$sourceLongitude&daddr=$destinationLatitude,$destinationLongitude"
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
             startActivity(intent)
@@ -133,14 +122,13 @@ class DetailsFragemnt : Fragment(), OnMapReadyCallback {
         return view
     }
 
-
     companion object {
-        lateinit var list: Venue
+        lateinit var list: WishList
         @JvmStatic
-        fun newInstance(param1: Venue?) =
+        fun newInstance(param1: WishList) =
                 DetailsFragemnt().apply {
                     arguments = Bundle().apply {
-                        list = param1!!
+                        list = param1
                     }
                 }
     }

@@ -5,7 +5,7 @@ import java.io.Serializable
 data class DetailsData(
         val meta: DMeta?,
         val response: DResponse?
-):Serializable
+) : Serializable
 
 data class DResponse(
         val venue: DVenue?
@@ -265,7 +265,6 @@ data class HighlightTextColor(
         val photoId: String?,
         val value: Int?
 )
-
 
 
 data class Todo(

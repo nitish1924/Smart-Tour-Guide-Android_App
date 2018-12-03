@@ -95,7 +95,7 @@ class HomeFragment : Fragment(), OnClickListener {
             Log.i("catch", longitude)
             Log.i("catch", latitude)
         }
-        getWeather().execute("https://api.openweathermap.org/data/2.5/weather?lat="+longitude+"&lon="+latitude+"&appid=43ca8af9d4bfa71d55815e0c9ca37218&units=imperial")
+        getWeather().execute("https://api.openweathermap.org/data/2.5/weather?lat=" + longitude + "&lon=" + latitude + "&appid=43ca8af9d4bfa71d55815e0c9ca37218&units=imperial")
 
         val editor = sharedPref.edit()
 
@@ -113,6 +113,7 @@ class HomeFragment : Fragment(), OnClickListener {
 
         return myview
     }
+
     inner class getWeather : AsyncTask<String, Void, String>() {
         override fun doInBackground(vararg params: String?): String {
             if (params[0] != null) {
@@ -128,12 +129,11 @@ class HomeFragment : Fragment(), OnClickListener {
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
             Log.i("json weather", result)
-            try{
+            try {
                 val data = Gson().fromJson(result, WeatherData::class.java)
-                homedesc.text=data.weather!![0]!!.description
-                hometemp.text= data.main!!.temp.toString()
-            }
-            catch (e:Exception){
+                homedesc.text = data.weather!![0]!!.description
+                hometemp.text = data.main!!.temp.toString()
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
 
@@ -333,6 +333,7 @@ class HomeFragment : Fragment(), OnClickListener {
                                 venue.isOpen = details.response!!.venue!!.popular!!.isOpen.toString()
                                 venue.rating = details.response!!.venue!!.rating.toString()
                                 venue.contact = details.response!!.venue!!.contact!!.phone
+                                venue.price = details.response!!.venue!!.price!!.message
                                 venue.photoUrl = details.response!!.venue!!.bestPhoto!!.prefix + "600x500" + details.response!!.venue!!.bestPhoto!!.suffix
                                 Log.i("desc", venue.rating)
                             } catch (e: java.lang.Exception) {
@@ -429,6 +430,11 @@ class HomeFragment : Fragment(), OnClickListener {
                 val changeActivity = Intent(activity, MainActivity::class.java)
                 startActivity(changeActivity)
             }
+            R.id.home_wishlist -> {
+                val changeActivity = Intent(activity, ViewpagerActivity::class.java)
+                startActivity(changeActivity)
+            }
+
         }
         return super.onOptionsItemSelected(item)
     }
