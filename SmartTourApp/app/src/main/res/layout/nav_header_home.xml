@@ -7,8 +7,9 @@
 
     <ImageView
         android:id="@+id/navheaderimage"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:src="@drawable/froggyfinal"/>
 
 
@@ -17,28 +18,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="What's Plan "
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:textColor="@color/fontcolor"
-        android:textSize="25dp"
-        android:textStyle="bold" />
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:padding="15dp"/>
     <TextView
         android:id="@+id/navheadertext2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="What's Plan "
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:textColor="@color/fontcolor"
-        android:textSize="25dp"
-        android:textStyle="bold" />
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:padding="15dp"/>
     <TextView
         android:id="@+id/navheadertext3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="What's Plan "
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:textColor="@color/fontcolor"
-        android:textSize="25dp"
-        android:textStyle="bold" />
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:padding="15dp"/>
 
 
 

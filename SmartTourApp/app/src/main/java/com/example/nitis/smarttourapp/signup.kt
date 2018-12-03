@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_signup.*
 
 class signup : AppCompatActivity() {
@@ -48,6 +49,12 @@ class signup : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
 
+        setSupportActionBar(signuptoolbar)
+        val menuBar = supportActionBar
+        menuBar!!.title = "Smart Tour Guide"
+        menuBar.setDisplayShowHomeEnabled(true)
+        menuBar.setLogo(R.mipmap.ic_launcher)
+        menuBar.setDisplayUseLogoEnabled(true)
 
         signUp.setOnClickListener {
             val name = signupname.text.toString()

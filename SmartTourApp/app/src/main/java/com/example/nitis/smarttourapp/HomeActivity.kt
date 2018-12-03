@@ -1,5 +1,6 @@
 package com.example.nitis.smarttourapp
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -35,9 +36,9 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         //setting the nav drawer text fields
         val headerView = nav_view.getHeaderView(0)
-        headerView.navheadertext1.text = Uname
+        headerView.navheadertext1.text = "Name : "+Uname
         headerView.navheadertext2.text = Uemail
-        headerView.navheadertext3.text = Ucontact
+        headerView.navheadertext3.text = "Contact : "+Ucontact
 
         supportFragmentManager
                 .beginTransaction()
@@ -57,26 +58,20 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
         when (p0.itemId) {
-            R.id.nav_Nightlife -> {
-
+            R.id.nav_wishlist -> {
+                val changeActivity = Intent(this, ViewpagerActivity::class.java)
+                startActivity(changeActivity)
             }
-            R.id.nav_cafe -> {
+            R.id.nav_logout -> {
 
-                true
+                val sharedpreferences = PreferenceManager.getDefaultSharedPreferences(this)
+                val editor = sharedpreferences.edit()
+                editor.clear()
+                editor.commit()
+                val changeActivity = Intent(this, MainActivity::class.java)
+                startActivity(changeActivity)
             }
-            R.id.nav_food -> {
 
-            }
-            R.id.nav_toppicks -> {
-
-            }
-            R.id.nav_shopping -> {
-
-                true
-            }
-            R.id.nav_movies -> {
-
-            }
 
         }
         drawer_layout.closeDrawer(GravityCompat.START)

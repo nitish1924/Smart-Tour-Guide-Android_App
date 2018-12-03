@@ -2,31 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_toppicks"
+            android:id="@+id/nav_wishlist"
             android:icon="@drawable/ic_toppicks"
-            android:title="Top Picks" />
+            android:title="Wishlist" />
         <item
-            android:id="@+id/nav_food"
+            android:id="@+id/nav_logout"
             android:icon="@drawable/ic_food"
-            android:title="Food" />
-        <item
-            android:id="@+id/nav_cafe"
-            android:icon="@drawable/ic_cafe"
-            android:title="Cafe" />
-        <item
-            android:id="@+id/nav_Nightlife"
-            android:icon="@drawable/ic_nightlife"
-            android:title="Night Life" />
+            android:title="Sign Out" />
 
-        <item
-            android:id="@+id/nav_shopping"
-            android:icon="@drawable/ic_shopping"
-            android:title="Shopping" />
-
-        <item
-            android:id="@+id/nav_movies"
-            android:icon="@drawable/ic_movies"
-            android:title="Movies" />
 
     </group>
 

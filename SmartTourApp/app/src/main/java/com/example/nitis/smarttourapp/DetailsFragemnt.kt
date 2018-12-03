@@ -85,8 +85,15 @@ class DetailsFragemnt : Fragment(), OnMapReadyCallback {
             view!!.detailfragcontact.text = list.contact
             view!!.detailfragdescription.text = list.description
             view!!.detailprice.text = list.price
-            var numericRating: Float = (list.rating!!.toFloat() / 2.0f)
-            view!!.detailfragrating.rating = numericRating
+            try{
+                var numericRating: Float = (list.rating!!.toFloat() / 2.0f)
+                view!!.detailfragrating.rating = numericRating
+            }
+            catch(e:Exception){
+                view!!.detailfragrating.rating = 0f
+            }
+
+
             view!!.detailfragtemp.text = temp
             view!!.detailfragtempdesc.text = tempDesc
 

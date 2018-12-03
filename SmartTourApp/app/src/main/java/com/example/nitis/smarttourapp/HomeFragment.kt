@@ -4,10 +4,9 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.location.Location
-import android.location.LocationManager
 import android.content.pm.PackageManager
-import android.location.LocationListener
+import android.location.*
+import android.location.Location
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
@@ -23,6 +22,8 @@ import android.widget.Toast
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import java.util.*
+
 
 private const val PERMISSION_REQUEST = 10
 
@@ -104,12 +105,28 @@ class HomeFragment : Fragment(), OnClickListener {
         editor.commit()
 
         myview.BNight_Life.setOnClickListener(this)
-        myview.BTop_picks.setOnClickListener(this)
+        myview.BGrocery.setOnClickListener(this)
         myview.Bcafe.setOnClickListener(this)
         myview.Bfood.setOnClickListener(this)
         myview.Bmovies.setOnClickListener(this)
         myview.Bshopping.setOnClickListener(this)
         myview.mylocationbtn.setOnClickListener(this)
+        myview.homeSearch.setOnClickListener (this)
+
+        try {
+            val geocoder: Geocoder = Geocoder(activity, Locale.getDefault())
+            val addresses: List<Address>
+
+            addresses = geocoder.getFromLocation(longitude.toDouble(), latitude.toDouble(), 1)
+
+            val address = addresses[0].getAddressLine(0)
+//            val state = addresses[0].getAdminArea()
+            val country = addresses[0].getCountryName()
+            myview.mylocationbtn.text = address + ","+ country
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
 
         return myview
     }
@@ -131,8 +148,8 @@ class HomeFragment : Fragment(), OnClickListener {
             Log.i("json weather", result)
             try {
                 val data = Gson().fromJson(result, WeatherData::class.java)
-                homedesc.text = data.weather!![0]!!.description
-                hometemp.text = data.main!!.temp.toString()
+                homedesc.text = "Weather Description : " + data.weather!![0]!!.description
+                hometemp.text = "Temperature in(F) :" + data.main!!.temp.toString()
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -441,12 +458,12 @@ class HomeFragment : Fragment(), OnClickListener {
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.BTop_picks -> {
-                query = "trending"
+            R.id.BGrocery -> {
+                query = "grocery"
                 executeURL()
             }
             R.id.Bfood -> {
-                query = "food"
+                query = "restaurants"
                 executeURL()
             }
             R.id.BNight_Life -> {
@@ -470,6 +487,15 @@ class HomeFragment : Fragment(), OnClickListener {
                 changeActivity.putExtra("longitude", locationGps!!.longitude.toString())
                 changeActivity.putExtra("latitude", locationGps!!.latitude.toString())
                 startActivity(changeActivity)
+            }
+            R.id.homeSearch -> {
+                if(homeactivitytextview.text.toString()==""){
+                    Toast.makeText(activity,"Please enter your preference",Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    query = homeactivitytextview.text.toString()
+                    executeURL()
+                }
             }
         }
     }

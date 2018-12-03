@@ -13,6 +13,7 @@ import android.widget.Toast
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import android.preference.PreferenceManager
+import kotlinx.android.synthetic.main.fragment_sign_in.view.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -82,6 +83,9 @@ class sign_in : Fragment(), View.OnClickListener {
                 val signupactivity = Intent(activity, signup::class.java)
                 startActivity(signupactivity)
             }
+            R.id.forgotPwd -> {
+                Toast.makeText(activity,"forgot",Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -104,6 +108,7 @@ class sign_in : Fragment(), View.OnClickListener {
         b.setOnClickListener(this)
         val a = myview.findViewById<Button>(R.id.signin)
         a.setOnClickListener(this)
+        myview.forgotPwd.setOnClickListener(this)
         val sharedpreferences = PreferenceManager.getDefaultSharedPreferences(activity)
         val editor = sharedpreferences.edit()
         editor.clear()

@@ -16,6 +16,7 @@ import android.widget.Toast
 import android.location.LocationManager
 import android.location.Geocoder
 import android.preference.PreferenceManager
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class ChangeLocationActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -26,6 +27,15 @@ class ChangeLocationActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_location)
+
+        setSupportActionBar(changeLoctoolbar)
+        val menuBar = supportActionBar
+        menuBar!!.title = "Select Location"
+        menuBar.setDisplayShowHomeEnabled(true)
+        menuBar.setLogo(R.mipmap.ic_launcher)
+        menuBar.setDisplayUseLogoEnabled(true)
+        menuBar.setDisplayHomeAsUpEnabled(true)
+
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
         //now get Editor
         val editor = sharedPref.edit()

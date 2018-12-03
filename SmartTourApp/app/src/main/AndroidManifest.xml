@@ -22,8 +22,8 @@
         </activity>
         <activity android:name=".signup" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".RecyclerActivity" />
-        <activity android:name=".ViewpagerActivity" />
+        <activity android:name=".ViewpagerActivity"
+            android:parentActivityName=".HomeActivity"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -38,7 +38,8 @@
 
         <activity
             android:name=".ChangeLocationActivity"
-            android:label="@string/title_activity_change_location"></activity>
+            android:label="@string/title_activity_change_location"
+            android:parentActivityName=".HomeActivity"></activity>
     </application>
 
 </manifest>

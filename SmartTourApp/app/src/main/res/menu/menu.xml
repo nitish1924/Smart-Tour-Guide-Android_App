@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/home_logout"
-        android:src="@drawable/logout"
-        android:title="Log Out" />
     <item android:id="@+id/home_wishlist"
         android:src="@drawable/logout"
         android:title="Wishlist" />
+    <item android:id="@+id/home_logout"
+        android:src="@drawable/logout"
+        android:title="Sign Out" />
 </menu>
