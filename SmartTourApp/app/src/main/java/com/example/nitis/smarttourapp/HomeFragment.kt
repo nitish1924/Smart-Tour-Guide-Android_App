@@ -55,7 +55,6 @@ class HomeFragment : Fragment(), OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -68,7 +67,7 @@ class HomeFragment : Fragment(), OnClickListener {
 
         val myview = inflater.inflate(R.layout.fragment_home, container, false)
         getLocation()
-        (activity as AppCompatActivity).supportActionBar?.title = "Welcome " + Uname
+       //s (activity as AppCompatActivity).supportActionBar?.title = "Welcome " + Uname
         disableView(myview)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkPermission(permissions)) {
@@ -431,30 +430,6 @@ class HomeFragment : Fragment(), OnClickListener {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater?.inflate(R.menu.menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-        when (item?.itemId) {
-            R.id.home_logout -> {
-                val sharedpreferences = PreferenceManager.getDefaultSharedPreferences(activity)
-                val editor = sharedpreferences.edit()
-                editor.clear()
-                editor.commit()
-                val changeActivity = Intent(activity, MainActivity::class.java)
-                startActivity(changeActivity)
-            }
-            R.id.home_wishlist -> {
-                val changeActivity = Intent(activity, ViewpagerActivity::class.java)
-                startActivity(changeActivity)
-            }
-
-        }
-        return super.onOptionsItemSelected(item)
-    }
 
     override fun onClick(v: View?) {
         when (v!!.id) {

@@ -24,11 +24,11 @@ class  ViewpagerActivity : AppCompatActivity() {
         pagerAdapter = PagerAdapter(supportFragmentManager,applicationContext)
         pagerAdapter!!.addFragments(DetailsFragemnt())
 
-       // pagerAdapter!!.addFragments(MovieFragment(),"Movies")
 
         //pageradapter to viewpager
         viewPager.adapter=pagerAdapter
         //viewpagerwith tablayout
+
         tabLayout.setupWithViewPager(viewPager)
     }
 

@@ -22,9 +22,8 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.card_view.view.*
-import java.lang.Exception
 import java.text.DecimalFormat
+import kotlin.Exception
 
 
 class MyAdapter(private val list: ArrayList<Venue?>, context: Context) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
@@ -58,10 +57,9 @@ class MyAdapter(private val list: ArrayList<Venue?>, context: Context) : Recycle
         var title: TextView
         var placeAddress: TextView
         var placeDistance: TextView
-        var description: TextView
+        // var description: TextView
         var open: TextView
         var rating: TextView
-        var photoUrl: TextView
         var overflowImage: ImageView
 
         init {
@@ -69,10 +67,9 @@ class MyAdapter(private val list: ArrayList<Venue?>, context: Context) : Recycle
             title = v.findViewById(R.id.title)
             placeAddress = v.findViewById(R.id.address)
             placeDistance = v.findViewById(R.id.distance)
-            description = v.findViewById(R.id.description)
+            //  description = v.findViewById(R.id.description)
             open = v.findViewById(R.id.open)
             rating = v.findViewById(R.id.rating)
-            photoUrl = v.findViewById(R.id.photoUrl)
             overflowImage = v.findViewById(R.id.overflow)
         }
     }
@@ -91,6 +88,7 @@ class MyAdapter(private val list: ArrayList<Venue?>, context: Context) : Recycle
 
         return MyViewHolder(itemView)
     }
+
     inner class addToWishList : AsyncTask<String, Void, String>() {
         override fun doInBackground(vararg params: String?): String {
             if (params[0] != null) {
@@ -107,7 +105,7 @@ class MyAdapter(private val list: ArrayList<Venue?>, context: Context) : Recycle
 
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
-           Toast.makeText(myContext,"Added to Wishlist",Toast.LENGTH_SHORT).show()
+            Toast.makeText(myContext, "Added to Wishlist", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -123,27 +121,42 @@ class MyAdapter(private val list: ArrayList<Venue?>, context: Context) : Recycle
         for (a in list[position]!!.location!!.formattedAddress!!) {
             addr += a
         }
-        holder.placeAddress.text = addr
+        holder.placeAddress.text = "Address: " + addr
         var distanceMiles: Double = (list[position]!!.location!!.distance!!.toDouble() / 1609.0)
         var df = DecimalFormat("##.##")
         holder.placeDistance.text = df.format(distanceMiles).toString() + " Miles"
-        holder.open.text = list[position]!!.isOpen
-        holder.description.text = list[position]!!.description
-        holder.rating.text = list[position]!!.rating
-        holder.photoUrl.text = list[position]!!.photoUrl
+        try {
+            if (list[position]!!.isOpen == "true") {
+                holder.open.text = "Open Now"
+            } else {
+                holder.open.text = "Closed Now"
+            }
+        } catch (e: Exception) {
+            holder.open.text = "Maybe Open Now"
+        }
+        // holder.description.text = list[position]!!.description
+        try {
+            if (list[position]!!.rating == null)
+                holder.rating.text = ""
+            else
+                holder.rating.text = "Rating : " + list[position]!!.rating
+        } catch (e: Exception) {
+            holder.rating.text = ""
+        }
+
         Picasso.get().load(list[position]!!.photoUrl).into(holder.img)
 
         holder.itemView.setOnClickListener {
             onClick!!.onItemClick(position)
         }
         holder.overflowImage.setOnClickListener {
-            val popup = PopupMenu(myContext !!,it)
+            val popup = PopupMenu(myContext!!, it)
             val menuInflater = popup.menuInflater
-            menuInflater.inflate (R.menu.popup_menu ,popup.menu)
-            popup.setOnMenuItemClickListener{
-                when (it.itemId){
+            menuInflater.inflate(R.menu.popup_menu, popup.menu)
+            popup.setOnMenuItemClickListener {
+                when (it.itemId) {
 
-                    R.id.addWishList-> {
+                    R.id.addWishList -> {
                         val sharedPref = PreferenceManager.getDefaultSharedPreferences(myContext)
                         val Uemail = sharedPref.getString("Uemail", "Not Available")
                         var data = WishList(
@@ -153,30 +166,29 @@ class MyAdapter(private val list: ArrayList<Venue?>, context: Context) : Recycle
                                 rating = list[position]!!.rating,
                                 price = list[position]!!.price,
                                 contact = list[position]!!.contact,
-                                photoUrl =list[position]!!.photoUrl,
+                                photoUrl = list[position]!!.photoUrl,
                                 latitude = list[position]!!.location!!.lat.toString(),
                                 longitude = list[position]!!.location!!.lng.toString(),
                                 address = addr
                         )
-                        var dataJson=Gson().toJson(data)
-                        try{
-                            addToWishList().execute("http://10.0.2.2:3000/addwishlist",dataJson)
-                        }
-                        catch(e:Exception){
+                        var dataJson = Gson().toJson(data)
+                        try {
+                            addToWishList().execute("http://10.0.2.2:3000/addwishlist", dataJson)
+                        } catch (e: Exception) {
                             e.printStackTrace()
                         }
 
 
                         return@setOnMenuItemClickListener true
                     }
-                    else ->{
+                    else -> {
                         return@setOnMenuItemClickListener false
                     }
                 }
             }
             // show icon on the popup menu !!
-            val menuHelper = MenuPopupHelper( this.myContext!! ,popup.menu as MenuBuilder,it)
-            menuHelper.setForceShowIcon (true)
+            val menuHelper = MenuPopupHelper(this.myContext!!, popup.menu as MenuBuilder, it)
+            menuHelper.setForceShowIcon(true)
             menuHelper.gravity = Gravity.END
             menuHelper.show()
         }

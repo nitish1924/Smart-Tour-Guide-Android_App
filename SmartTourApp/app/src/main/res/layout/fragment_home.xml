@@ -44,27 +44,31 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/homeactivitytextview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/ic_view_comfy_black_24dp"
-            android:drawablePadding="12dp"
-            android:gravity="center_horizontal"
-            android:hint="I'm Looking for..."
-            android:inputType="text"
-            android:padding="5dp"
-            android:textColor="@color/fontcolor"
-            android:textColorHint="@color/temp"
-            android:textSize="22dp"
-            android:textStyle="bold" />
-        <Button
-            android:id="@+id/homeSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Search"/>
+            <EditText
+                android:id="@+id/homeactivitytextview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/ic_view_comfy_black_24dp"
+                android:drawablePadding="12dp"
+                android:gravity="center_horizontal"
+                android:hint="I'm Looking for..."
+                android:inputType="text"
+                android:padding="5dp"
+                android:textColor="@color/fontcolor"
+                android:textColorHint="@color/temp"
+                android:textSize="22dp"
+                android:textStyle="bold" />
+            <Button
+                android:id="@+id/homeSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="140dp"
+                android:text="Search"/>
+
+
+
 
         <View
             android:layout_width="match_parent"

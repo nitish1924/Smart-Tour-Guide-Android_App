@@ -69,6 +69,35 @@ class sign_in : Fragment(), View.OnClickListener {
         }
     }
 
+    inner class forgotPwd : AsyncTask<String, Void, String>() {
+        override fun doInBackground(vararg params: String?): String {
+            if (params[0] != null) {
+                Log.i("params1", params[1])
+                val result = MyUtility.sendHttPostRequest(params[0]!!, params[1]!!)
+                if (result == null) {
+                    return "abc"
+                }
+                return result!!
+            }
+            return ""
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+            Log.i("signin result", result)
+            if (result == "Password reset email sent to employee registered email address") {
+                Toast.makeText(activity, result.toString(), Toast.LENGTH_SHORT).show()
+            } else {
+                if (result != "abc") {
+                    Toast.makeText(activity, result.toString(), Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(activity, "Something Went wrong", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+        }
+    }
+
     override fun onClick(p0: View?) {
         when (p0?.getId()) {
             R.id.signin -> {
@@ -84,7 +113,14 @@ class sign_in : Fragment(), View.OnClickListener {
                 startActivity(signupactivity)
             }
             R.id.forgotPwd -> {
-                Toast.makeText(activity,"forgot",Toast.LENGTH_SHORT).show()
+                var email = view!!.signin_email.text.toString()
+                if (email == "") {
+                    Toast.makeText(activity, "Please fill email field then click on forgot password link",
+                            Toast.LENGTH_LONG).show()
+                } else {
+                    var user = User(email, "", "", "")
+                    forgotPwd().execute("http://10.0.2.2:3000/forgotpwd", Gson().toJson(user))
+                }
             }
         }
     }

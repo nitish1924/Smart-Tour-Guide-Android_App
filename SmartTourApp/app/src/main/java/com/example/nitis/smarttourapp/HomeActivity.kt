@@ -7,6 +7,8 @@ import android.preference.PreferenceManager
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.nav_header_home.view.*
@@ -23,7 +25,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         menuBar.setDisplayShowHomeEnabled(true)
         menuBar.setLogo(R.mipmap.ic_launcher)
         menuBar.setDisplayUseLogoEnabled(true)
-
 
         val toggle = ActionBarDrawerToggle(this, drawer_layout, homeactivitytoolbar, R.string.open_nav, R.string.close_nav)
         drawer_layout.addDrawerListener(toggle) // toggle is now drawer listener !
@@ -48,6 +49,31 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     }
+    override fun onCreateOptionsMenu(menu: Menu?):Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        when (item?.itemId) {
+            R.id.home_logout -> {
+                val sharedpreferences = PreferenceManager.getDefaultSharedPreferences(this)
+                val editor = sharedpreferences.edit()
+                editor.clear()
+                editor.commit()
+                val changeActivity = Intent(this, MainActivity::class.java)
+                startActivity(changeActivity)
+            }
+            R.id.home_wishlist -> {
+                val changeActivity = Intent(this, ViewpagerActivity::class.java)
+                startActivity(changeActivity)
+            }
+
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {

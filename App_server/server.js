@@ -122,6 +122,21 @@ app.post('/getwishlist',(req,res)=>{
 		.catch((error)=>{return res.send(error.message)});
 	
 });
+//forgot password route
+app.post('/forgotpwd',(req,res)=>{
+	//return res.json("hello")
+	console.log("request forgotpwd");
+	console.log(req.body);
+	const{email} = req.body; //destructuring
+	auth.sendPasswordResetEmail(email)
+		.then(() => {
+			return res.send("Password reset email sent to employee registered email address");
+		})
+		.catch((error)=>{
+			return res.send(error.message);
+		});
+	
+});
 	
 
 

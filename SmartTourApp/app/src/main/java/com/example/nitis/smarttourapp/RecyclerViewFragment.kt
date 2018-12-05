@@ -67,7 +67,6 @@ class RecyclerViewFragment : Fragment(), MyAdapter.OnItemClicked {
     //following function is just to retain the state on orientation change.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
         retainInstance = true
 
     }

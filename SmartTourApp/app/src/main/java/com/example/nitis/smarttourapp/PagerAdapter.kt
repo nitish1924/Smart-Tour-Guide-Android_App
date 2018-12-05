@@ -1,4 +1,5 @@
 package com.example.nitis.smarttourapp
+
 import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
@@ -11,8 +12,8 @@ import android.util.Log
 import android.widget.Toast
 import com.google.gson.Gson
 
-class PagerAdapter(fm: FragmentManager,context: Context) : FragmentStatePagerAdapter(fm) {
-   private var list = ArrayList<WishList>()
+class PagerAdapter(fm: FragmentManager, context: Context) : FragmentStatePagerAdapter(fm) {
+    private var list = ArrayList<WishList>()
 
     inner class getWishList : AsyncTask<String, Void, String>() {
         override fun doInBackground(vararg params: String?): String {
@@ -34,12 +35,11 @@ class PagerAdapter(fm: FragmentManager,context: Context) : FragmentStatePagerAda
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
             Log.i("getwishlist result", result)
-            if(result!="abc"){
+            if (result != "abc") {
                 try {
-                    list=ArrayList(Gson().fromJson(result, Array<WishList>::class.java).asList())
+                    list = ArrayList(Gson().fromJson(result, Array<WishList>::class.java).asList())
                     notifyDataSetChanged()
-                }
-                catch (e:Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }
@@ -50,8 +50,8 @@ class PagerAdapter(fm: FragmentManager,context: Context) : FragmentStatePagerAda
     init {
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
         val Uemail = sharedPref.getString("Uemail", "Not Available")
-        val data=WishList(Uemail,"","","","","","","","","")
-        getWishList().execute("http://10.0.2.2:3000/getwishlist",Gson().toJson(data))
+        val data = WishList(Uemail, "", "", "", "", "", "", "", "", "")
+        getWishList().execute("http://10.0.2.2:3000/getwishlist", Gson().toJson(data))
     }
 
     // var mFm =fm
