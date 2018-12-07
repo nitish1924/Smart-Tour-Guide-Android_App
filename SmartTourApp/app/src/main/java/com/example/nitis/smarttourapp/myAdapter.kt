@@ -159,14 +159,26 @@ class MyAdapter(private val list: ArrayList<Venue?>, context: Context) : Recycle
                     R.id.addWishList -> {
                         val sharedPref = PreferenceManager.getDefaultSharedPreferences(myContext)
                         val Uemail = sharedPref.getString("Uemail", "Not Available")
+                        var a = list[position]!!.price
+                        var b =list[position]!!.photoUrl
+                        var c=list[position]!!.rating
+                        var d=list[position]!!.contact
+                        if(a==null)
+                            a=""
+                        if(b==null)
+                            b=""
+                        if(c==null)
+                            c=""
+                        if(d==null)
+                            d=""
                         var data = WishList(
                                 user = Uemail,
                                 name = list[position]!!.name,
                                 description = list[position]!!.description,
-                                rating = list[position]!!.rating,
-                                price = list[position]!!.price,
-                                contact = list[position]!!.contact,
-                                photoUrl = list[position]!!.photoUrl,
+                                rating = c,
+                                price = a,
+                                contact =d,
+                                photoUrl = b,
                                 latitude = list[position]!!.location!!.lat.toString(),
                                 longitude = list[position]!!.location!!.lng.toString(),
                                 address = addr

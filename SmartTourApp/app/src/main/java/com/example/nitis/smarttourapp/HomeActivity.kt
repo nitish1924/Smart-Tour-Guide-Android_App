@@ -8,7 +8,6 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.nav_header_home.view.*
@@ -43,7 +42,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.homeframe, HomeFragment.newInstance(1), "random")
+                .replace(R.id.homeframe, HomeFragment.newInstance(1),"hello")
                 .addToBackStack(null)
                 .commit()
 

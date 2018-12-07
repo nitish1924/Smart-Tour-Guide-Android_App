@@ -14,9 +14,7 @@ import android.preference.PreferenceManager
 import android.provider.Settings
 import android.util.Log
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.view.*
-import android.view.Menu
 import android.view.View.OnClickListener
 import android.widget.Toast
 import com.google.gson.Gson
@@ -55,29 +53,27 @@ class HomeFragment : Fragment(), OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        retainInstance = true
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(activity)
-        val Uname = sharedPref.getString("Uname", "Not Available")
-        val Uemail = sharedPref.getString("Uemail", "Not Available")
-
-
         val myview = inflater.inflate(R.layout.fragment_home, container, false)
-        getLocation()
-       //s (activity as AppCompatActivity).supportActionBar?.title = "Welcome " + Uname
+
         disableView(myview)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkPermission(permissions)) {
                 enableView(myview)
+
             } else {
                 requestPermissions(permissions, PERMISSION_REQUEST)
             }
         } else {
             enableView(myview)
         }
+        getLocation()
 
         try {
             longitude = sharedPref.getString("currentLong", locationGps!!.longitude.toString())
@@ -86,22 +82,29 @@ class HomeFragment : Fragment(), OnClickListener {
             Log.i("try long", longitude)
             Log.i("try lat", latitude)
         } catch (e: Exception) {
-
             // ==================================== //null pointer exception sometimes===========================================================
+            try {
+                longitude = locationGps!!.longitude.toString()
+                latitude = locationGps!!.latitude.toString()
+                Log.i("catch", longitude)
+                Log.i("catch", latitude)
+            } catch (e: Exception) {
+                latitude = "43.03"
+                longitude = "-76.13"
+            }
 
-
-            longitude = locationGps!!.longitude.toString()
-            latitude = locationGps!!.latitude.toString()
-            Log.i("catch", longitude)
-            Log.i("catch", latitude)
         }
         getWeather().execute("https://api.openweathermap.org/data/2.5/weather?lat=" + longitude + "&lon=" + latitude + "&appid=43ca8af9d4bfa71d55815e0c9ca37218&units=imperial")
 
         val editor = sharedPref.edit()
-
-        editor.putString("GPSLong", locationGps!!.latitude.toString())
-        editor.putString("GPSLat", locationGps!!.longitude.toString())
-        editor.commit()
+        try{
+            editor.putString("GPSLong", locationGps!!.latitude.toString())
+            editor.putString("GPSLat", locationGps!!.longitude.toString())
+            editor.commit()
+        }
+        catch (e:Exception){
+            e.printStackTrace()
+        }
 
         myview.BNight_Life.setOnClickListener(this)
         myview.BGrocery.setOnClickListener(this)
@@ -110,7 +113,7 @@ class HomeFragment : Fragment(), OnClickListener {
         myview.Bmovies.setOnClickListener(this)
         myview.Bshopping.setOnClickListener(this)
         myview.mylocationbtn.setOnClickListener(this)
-        myview.homeSearch.setOnClickListener (this)
+        myview.homeSearch.setOnClickListener(this)
 
         try {
             val geocoder: Geocoder = Geocoder(activity, Locale.getDefault())
@@ -119,9 +122,8 @@ class HomeFragment : Fragment(), OnClickListener {
             addresses = geocoder.getFromLocation(longitude.toDouble(), latitude.toDouble(), 1)
 
             val address = addresses[0].getAddressLine(0)
-//            val state = addresses[0].getAdminArea()
             val country = addresses[0].getCountryName()
-            myview.mylocationbtn.text = address + ","+ country
+            myview.mylocationbtn.text = address + "," + country
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -173,13 +175,8 @@ class HomeFragment : Fragment(), OnClickListener {
             v.mylocationbtn.alpha = 1F
 
 
-            //New fragment with map to select or search location
-            // v.mylocationbtn.setOnClickListener { getLocation() }
-
-
-            Toast.makeText(activity, "Done", Toast.LENGTH_SHORT).show()
         } catch (e: Exception) {
-            Toast.makeText(activity, "exception", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Try Again", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -228,45 +225,45 @@ class HomeFragment : Fragment(), OnClickListener {
             }
             if (hasNetwork) {
                 Log.d("CodeAndroidLocation", "hasGps")
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0F, object : LocationListener {
-                    override fun onLocationChanged(location: Location?) {
-                        if (location != null) {
-                            locationNetwork = location
-                            Log.d("CodeAndroidLocation", " Network Latitude : " + locationNetwork!!.latitude)
-                            Log.d("CodeAndroidLocation", " Network Longitude : " + locationNetwork!!.longitude)
+                try {
+
+
+                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0F, object : LocationListener {
+                        override fun onLocationChanged(location: Location?) {
+                            if (location != null) {
+                                locationNetwork = location
+                                Log.d("CodeAndroidLocation", " Network Latitude : " + locationNetwork!!.latitude)
+                                Log.d("CodeAndroidLocation", " Network Longitude : " + locationNetwork!!.longitude)
+                            }
                         }
-                    }
 
-                    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+                        override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
 
-                    }
+                        }
 
-                    override fun onProviderEnabled(provider: String?) {
+                        override fun onProviderEnabled(provider: String?) {
 
-                    }
+                        }
 
-                    override fun onProviderDisabled(provider: String?) {
+                        override fun onProviderDisabled(provider: String?) {
 
-                    }
+                        }
 
-                })
-
-                val localNetworkLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-                if (localNetworkLocation != null)
-                    locationNetwork = localNetworkLocation
+                    })
+                    val localNetworkLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+                    if (localNetworkLocation != null)
+                        locationNetwork = localNetworkLocation
+                }
+                catch(e:Exception){
+                    e.printStackTrace()
+                }
             }
 
             if (locationGps != null && locationNetwork != null) {
                 if (locationGps!!.accuracy > locationNetwork!!.accuracy) {
-//                    myresult.append("\nNetwork ")
-//                    myresult.append("\nLatitude : " + locationNetwork!!.latitude)
-//                    myresult.append("\nLongitude : " + locationNetwork!!.longitude)
                     Log.d("CodeAndroidLocation", " Network Latitude : " + locationNetwork!!.latitude)
                     Log.d("CodeAndroidLocation", " Network Longitude : " + locationNetwork!!.longitude)
                 } else {
-//                    myresult.append("\nGPS ")
-//                    myresult.append("\nLatitude : " + locationGps!!.latitude)
-//                    myresult.append("\nLongitude : " + locationGps!!.longitude)
                     Log.d("CodeAndroidLocation", " GPS Latitude : " + locationGps!!.latitude)
                     Log.d("CodeAndroidLocation", " GPS Longitude : " + locationGps!!.longitude)
                 }
@@ -357,7 +354,7 @@ class HomeFragment : Fragment(), OnClickListener {
                             }
 
                         } else {
-                            venue.description = "Description Not Available"
+                            venue.description = ""
                         }
 
                     }
@@ -459,15 +456,22 @@ class HomeFragment : Fragment(), OnClickListener {
             }
             R.id.mylocationbtn -> {
                 val changeActivity = Intent(activity, ChangeLocationActivity::class.java)
-                changeActivity.putExtra("longitude", locationGps!!.longitude.toString())
-                changeActivity.putExtra("latitude", locationGps!!.latitude.toString())
-                startActivity(changeActivity)
+                try{
+                    changeActivity.putExtra("longitude", locationGps!!.longitude.toString())
+                    changeActivity.putExtra("latitude", locationGps!!.latitude.toString())
+                    startActivity(changeActivity)
+                }
+                catch (e:Exception){
+                    changeActivity.putExtra("longitude", "43.0392")
+                    changeActivity.putExtra("latitude", "-76.1351")
+                    startActivity(changeActivity)
+                }
+
             }
             R.id.homeSearch -> {
-                if(homeactivitytextview.text.toString()==""){
-                    Toast.makeText(activity,"Please enter your preference",Toast.LENGTH_SHORT).show()
-                }
-                else{
+                if (homeactivitytextview.text.toString() == "") {
+                    Toast.makeText(activity, "Please enter your preference", Toast.LENGTH_SHORT).show()
+                } else {
                     query = homeactivitytextview.text.toString()
                     executeURL()
                 }

@@ -37,6 +37,7 @@ class DetailsFragemnt : Fragment(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        retainInstance=true
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -78,13 +79,19 @@ class DetailsFragemnt : Fragment(), OnMapReadyCallback {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-            Picasso.get().load(list.photoUrl).into(view!!.detailfragimage)
 
-            view!!.detailfradaddress.text = list.address
+            view!!.detailfradaddress.text = "Address: "+list.address
             view!!.detailfragname.text = list.name
-            view!!.detailfragcontact.text = list.contact
-            view!!.detailfragdescription.text = list.description
-            view!!.detailprice.text = list.price
+            view!!.detailfragcontact.text = "Contact: "+list.contact
+            view!!.detailfragdescription.text = "Tips: "+list.description
+            view!!.detailprice.text = "Price: "+list.price
+            try{
+                Picasso.get().load(list.photoUrl).into(view!!.detailfragimage)
+            }
+            catch(e:Exception){
+                e.printStackTrace()
+            }
+
             try{
                 var numericRating: Float = (list.rating!!.toFloat() / 2.0f)
                 view!!.detailfragrating.rating = numericRating
@@ -94,8 +101,8 @@ class DetailsFragemnt : Fragment(), OnMapReadyCallback {
             }
 
 
-            view!!.detailfragtemp.text = temp
-            view!!.detailfragtempdesc.text = tempDesc
+            view!!.detailfragtemp.text = "Temperature(in F): "+temp
+            view!!.detailfragtempdesc.text = "Temperature Description: "+tempDesc
 
 
         }
