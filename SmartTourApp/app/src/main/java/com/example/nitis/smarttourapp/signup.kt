@@ -49,12 +49,12 @@ class signup : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
 
-        setSupportActionBar(signuptoolbar)
-        val menuBar = supportActionBar
-        menuBar!!.title = "Smart Tour Guide"
-        menuBar.setDisplayShowHomeEnabled(true)
-        menuBar.setLogo(R.mipmap.ic_launcher)
-        menuBar.setDisplayUseLogoEnabled(true)
+//        setSupportActionBar(signuptoolbar)
+//        val menuBar = supportActionBar
+//        menuBar!!.title = "Smart Tour Guide"
+//        menuBar.setDisplayShowHomeEnabled(true)
+//        menuBar.setLogo(R.mipmap.ic_launcher)
+//        menuBar.setDisplayUseLogoEnabled(true)
 
         signUp.setOnClickListener {
             val name = signupname.text.toString()

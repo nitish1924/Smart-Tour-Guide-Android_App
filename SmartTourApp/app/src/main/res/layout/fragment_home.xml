@@ -13,8 +13,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Weather Forecast"
+            android:text="Weather Now"
             android:textSize="25dp"
+            android:textStyle="bold"
+            android:textColor="@color/fontcolor"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             />
@@ -24,6 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="NO weather Data"
+            android:textColor="@color/fontcolor"
             android:textSize="15dp"
             android:layout_gravity="center"
             />
@@ -34,6 +37,7 @@
             android:layout_height="wrap_content"
             android:text="NO weather Data"
             android:textSize="15dp"
+            android:textColor="@color/fontcolor"
             android:layout_gravity="center"
             />
     </LinearLayout>
@@ -48,11 +52,11 @@
                 android:id="@+id/homeactivitytextview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="120dp"
                 android:background="@android:color/transparent"
                 android:drawableLeft="@drawable/ic_view_comfy_black_24dp"
-                android:drawablePadding="12dp"
-                android:gravity="center_horizontal"
+                android:drawablePadding="20dp"
+
                 android:hint="I'm Looking for..."
                 android:inputType="text"
                 android:padding="5dp"
@@ -64,35 +68,30 @@
                 android:id="@+id/homeSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="140dp"
+                android:layout_marginTop="170dp"
+                android:drawableLeft="@drawable/ic_search_"
                 android:background="@drawable/roundbutton"
                 android:padding="16dp"
-                android:textColor="#000"
+                android:textColor="@color/fontcolor"
                 android:textSize="15dp"
                 android:textStyle="bold"
+                android:textAlignment="viewStart"
                 android:text="Search"/>
 
-
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#f9d7db" />
 
         <Button
             android:id="@+id/BGrocery"
             style="@style/Base.TextAppearance.AppCompat.Body1"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="280dp"
             android:background="@drawable/roundbutton"
             android:clickable="true"
-            android:drawableLeft="@drawable/ic_toppicksblack"
+            android:drawableLeft="@drawable/ic_toppicks"
             android:padding="16dp"
             android:text="      Grocery"
             android:textAllCaps="false"
-            android:textColor="#000"
+            android:textColor="@color/fontcolor"
             android:textSize="15dp"
             android:textStyle="bold" />
 
@@ -102,14 +101,14 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="130dp"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="280dp"
             android:background="@drawable/roundbutton"
             android:clickable="true"
-            android:drawableLeft="@drawable/ic_foodblack"
+            android:drawableLeft="@drawable/ic_food"
             android:padding="16dp"
             android:text="            Food"
             android:textAllCaps="false"
-            android:textColor="#000"
+            android:textColor="@color/fontcolor"
             android:textSize="15dp"
             android:textStyle="bold" />
 
@@ -119,14 +118,14 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="260dp"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="280dp"
             android:background="@drawable/roundbutton"
             android:clickable="true"
-            android:drawableLeft="@drawable/ic_cafeblack"
+            android:drawableLeft="@drawable/ic_cafe"
             android:padding="16dp"
             android:text="                  Cafe"
             android:textAllCaps="false"
-            android:textColor="#000"
+            android:textColor="@color/fontcolor"
             android:textSize="15dp"
             android:textStyle="bold" />
 
@@ -135,14 +134,14 @@
             style="@style/Base.TextAppearance.AppCompat.Body1"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="280dp"
+            android:layout_marginTop="360dp"
             android:background="@drawable/roundbutton"
             android:clickable="true"
-            android:drawableLeft="@drawable/ic_nightlifeblack"
+            android:drawableLeft="@drawable/ic_nightlife"
             android:padding="16dp"
             android:text="Night Life"
             android:textAllCaps="false"
-            android:textColor="#000"
+            android:textColor="@color/fontcolor"
             android:textSize="15dp"
             android:textStyle="bold" />
 
@@ -152,14 +151,14 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="130dp"
-            android:layout_marginTop="280dp"
+            android:layout_marginTop="360dp"
             android:background="@drawable/roundbutton"
             android:clickable="true"
-            android:drawableLeft="@drawable/ic_shoppingblack"
+            android:drawableLeft="@drawable/ic_shopping"
             android:padding="16dp"
             android:text="  Shopping"
             android:textAllCaps="false"
-            android:textColor="#000"
+            android:textColor="@color/fontcolor"
             android:textSize="15dp"
             android:textStyle="bold" />
 
@@ -169,14 +168,14 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="260dp"
-            android:layout_marginTop="280dp"
+            android:layout_marginTop="360dp"
             android:background="@drawable/roundbutton"
             android:clickable="true"
-            android:drawableStart="@drawable/ic_moviesblack"
+            android:drawableStart="@drawable/ic_movies"
             android:padding="16dp"
             android:text="      Movies"
             android:textAllCaps="false"
-            android:textColor="#000"
+            android:textColor="@color/fontcolor"
             android:textSize="15dp"
             android:textStyle="bold" />
 
@@ -185,8 +184,8 @@
             style="@style/Base.TextAppearance.AppCompat.Body1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="370dp"
-            android:background="@drawable/mybutton"
+            android:layout_marginTop="490dp"
+            android:background="@drawable/roundbutton"
             android:clickable="true"
             android:drawableLeft="@drawable/ic_location_on_black_24dp"
             android:padding="16dp"

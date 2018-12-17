@@ -18,7 +18,7 @@ class  ViewpagerActivity : AppCompatActivity() {
 
         setSupportActionBar ( viewpagerToolbar )
         val menuBar = supportActionBar
-        menuBar!!.title="View Pager"
+        menuBar!!.title="Your Wishlist"
         menuBar.setDisplayHomeAsUpEnabled(true)
 
         pagerAdapter = PagerAdapter(supportFragmentManager,applicationContext)
@@ -27,7 +27,7 @@ class  ViewpagerActivity : AppCompatActivity() {
 
         //pageradapter to viewpager
         viewPager.adapter=pagerAdapter
-        //viewpagerwith tablayout
+//        viewpagerwith tablayout
 
         tabLayout.setupWithViewPager(viewPager)
     }

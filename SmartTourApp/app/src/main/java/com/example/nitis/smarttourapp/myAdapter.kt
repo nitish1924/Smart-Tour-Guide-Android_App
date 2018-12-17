@@ -149,6 +149,13 @@ class MyAdapter(private val list: ArrayList<Venue?>, context: Context) : Recycle
         holder.itemView.setOnClickListener {
             onClick!!.onItemClick(position)
         }
+        try{
+            holder.img.setX(-500f)
+            holder.img.animate().translationXBy(500f).setDuration(2000)
+        }
+        catch(e:Exception){
+            e.printStackTrace()
+        }
         holder.overflowImage.setOnClickListener {
             val popup = PopupMenu(myContext!!, it)
             val menuInflater = popup.menuInflater

@@ -87,6 +87,8 @@ class DetailsFragemnt : Fragment(), OnMapReadyCallback {
             view!!.detailprice.text = "Price: "+list.price
             try{
                 Picasso.get().load(list.photoUrl).into(view!!.detailfragimage)
+                view!!.detailfragimage.setY(-500f)
+                view!!.detailfragimage.animate().translationYBy(500f).setDuration(2000)
             }
             catch(e:Exception){
                 e.printStackTrace()

@@ -401,7 +401,7 @@ class HomeFragment : Fragment(), OnClickListener {
                 tempList = ArrayList(data.response!!.venues!!.toList())
                 var m = 0
                 for (list in tempList) {
-                    if (m < 5) {
+                    if (m < 10) {
                         masterList.add(list)
                     }
                     m++

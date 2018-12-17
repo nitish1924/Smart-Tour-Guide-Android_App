@@ -7,13 +7,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@drawable/third"
     tools:openDrawer="start">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/holo_orange_light"
+        android:background="@drawable/third"
         android:orientation="vertical"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="8dp">
@@ -21,10 +23,12 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/homeactivitytoolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#c2cc00"
+            android:background="@color/bgcolor"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"/>
+            android:titleTextColor="@color/fontcolor"
+            app:theme="@style/ToolBarStyle"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
 
         <FrameLayout
             android:id="@+id/homeframe"
@@ -39,6 +43,7 @@
         android:layout_height ="match_parent"
         android:layout_gravity ="start"
         android:fitsSystemWindows ="true"
+        app:theme="@style/NavigationViewStyle"
         app:itemTextColor="@color/fontcolor"
         app:itemIconTint="@color/fontcolor"
         android:background="@drawable/third"

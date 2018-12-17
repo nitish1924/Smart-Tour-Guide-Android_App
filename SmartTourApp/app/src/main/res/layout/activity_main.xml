@@ -5,13 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/maintoolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#c2cc00"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"/>
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/maintoolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/bgcolor"-->
+        <!--android:minHeight="?attr/actionBarSize"-->
+        <!--android:theme="?attr/actionBarTheme"/>-->
 
     <FrameLayout
         android:id="@+id/frame"

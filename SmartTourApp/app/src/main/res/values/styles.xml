@@ -8,4 +8,40 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ToolBarStyle" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">@color/fontcolor</item>
+        <item name="android:textColorSecondary">@color/fontcolor</item>
+        <item name="actionMenuTextColor">@color/fontcolor</item>
+
+    </style>
+
+    <style name="splashToolbar" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">@color/fontcolor</item>
+        <item name="android:textColorSecondary">@color/fontcolor</item>
+        <item name="android:textSize">20dp</item>
+
+    </style>
+
+
+    <!--<style name="AppThemeofPopup" parent="android:Theme.Light">-->
+        <!--<item name="android:popupMenuStyle">@style/PopupMenu</item>-->
+    <!--</style>-->
+
+    <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="android:popupBackground">@color/bgcolor</item>
+    </style>
+
+    <style name="NavigationViewStyle">
+        <item name="android:textSize">20dp</item> <!-- menu item text size-->
+           </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+    </style>
+
+
+
+    
+
+
 </resources>

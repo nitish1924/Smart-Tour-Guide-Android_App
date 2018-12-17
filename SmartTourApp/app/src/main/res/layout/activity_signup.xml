@@ -11,18 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/signuptoolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#c2cc00"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"/>
+        <!--<android.support.v7.widget.Toolbar-->
+            <!--android:id="@+id/signuptoolbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/bgcolor"-->
+            <!--android:minHeight="?attr/actionBarSize"-->
+            <!--android:theme="?attr/actionBarTheme"/>-->
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_height="250dp"
             android:src="@drawable/frog"/>
 
         <EditText
@@ -37,7 +36,7 @@
             android:textColorHint="@color/fontcolor"
             android:maxLines="1"
             android:drawableLeft="@drawable/ic_person_black_24dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="25dp"
             android:textColor="@color/fontcolor"/>
 
         <View
@@ -58,7 +57,7 @@
             android:textColor="@color/fontcolor"
             android:maxLines="1"
             android:drawableLeft="@drawable/ic_contact_phone_black_24dp"
-            android:layout_marginTop="40dp"/>
+            android:layout_marginTop="45dp"/>
 
         <View
             android:layout_width="match_parent"

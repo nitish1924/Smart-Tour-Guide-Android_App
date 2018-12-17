@@ -389,7 +389,6 @@ data class Reasons(
         val items: List<Item?>?
 )
 
-
 data class DMeta(
         val code: Int?,
         val requestId: String?

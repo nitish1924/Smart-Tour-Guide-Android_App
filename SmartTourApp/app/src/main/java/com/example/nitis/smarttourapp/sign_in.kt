@@ -145,10 +145,19 @@ class sign_in : Fragment(), View.OnClickListener {
         val a = myview.findViewById<Button>(R.id.signin)
         a.setOnClickListener(this)
         myview.forgotPwd.setOnClickListener(this)
-        val sharedpreferences = PreferenceManager.getDefaultSharedPreferences(activity)
-        val editor = sharedpreferences.edit()
-        editor.clear()
-        editor.commit()
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(activity)
+        var activeUser = ""
+        try {
+            activeUser = sharedPref.getString("Uname", "not available")
+            if (activeUser != "") {
+                if (activeUser != "not available") {
+                    val homeActivity = Intent(activity, HomeActivity::class.java)
+                    startActivity(homeActivity)
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         return myview
     }

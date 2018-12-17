@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    card_view:cardBackgroundColor="@color/fontcolor"
+    card_view:cardBackgroundColor="@color/bgcolor"
     card_view:cardCornerRadius="20dp">
 
     <LinearLayout
@@ -15,10 +16,10 @@
 
         <ImageView
             android:id="@+id/venueImage"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
             android:layout_weight="2"
-            android:paddingLeft="10dp"
+            android:paddingLeft="1dp"
             card_view:srcCompat="@drawable/nitish" />
 
         <LinearLayout
@@ -34,8 +35,9 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
                 android:text="TextView"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="15dp" />
+                android:textColor="@color/fontcolor"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/open"
@@ -44,7 +46,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
                 android:text="TextView"
-                android:textColor="@android:color/holo_red_dark" />
+                android:textColor="@color/fontcolor" />
 
             <TextView
                 android:id="@+id/rating"
@@ -53,7 +55,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
                 android:text="TextView"
-                android:textColor="@android:color/holo_red_dark" />
+                android:textColor="@color/fontcolor" />
 
             <TextView
                 android:id="@+id/address"
@@ -64,7 +66,7 @@
                 android:ellipsize="end"
                 android:maxLines="4"
                 android:text="TextView"
-                android:textColor="@android:color/holo_red_dark" />
+                android:textColor="@color/fontcolor" />
 
             <TextView
                 android:id="@+id/distance"
@@ -73,7 +75,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
                 android:text="TextView"
-                android:textColor="@android:color/holo_red_dark" />
+                android:textColor="@color/fontcolor" />
         </LinearLayout>
 
         <ImageView
@@ -82,6 +84,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:src="@drawable/overflow_img" />
+            android:background="@color/bgcolor"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme"
+            android:src="@drawable/ic_overflow_imggg" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

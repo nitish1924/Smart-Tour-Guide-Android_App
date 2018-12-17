@@ -1,14 +1,10 @@
 package com.example.nitis.smarttourapp
 
-import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.*
 import android.view.*
 import android.widget.Toast
-import java.text.SimpleDateFormat
-import java.util.*
-import android.view.inputmethod.InputMethodManager
 import kotlin.collections.ArrayList
 
 class RecyclerViewFragment : Fragment(), MyAdapter.OnItemClicked {
@@ -16,9 +12,6 @@ class RecyclerViewFragment : Fragment(), MyAdapter.OnItemClicked {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-
-//    private var movieList : MutableList < MovieData> = Gson().fromJson(moviesJson , Array<MovieData>:: class.java).asList().toMutableList()
-//    private var posterTable : MutableMap < String ,Int> = mutableMapOf ()
 
 
     companion object {
@@ -90,5 +83,6 @@ class RecyclerViewFragment : Fragment(), MyAdapter.OnItemClicked {
         }
         return view
     }
+
 
 }

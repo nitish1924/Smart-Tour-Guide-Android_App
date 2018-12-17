@@ -22,14 +22,15 @@
                 android:id="@+id/detailfragimage"
                 android:layout_width="150dp"
                 android:layout_height="100dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="1dp"
                 android:src="@drawable/frog" />
             <TextView
                 android:id="@+id/detailfradaddress"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="5dp"
+                android:layout_height="70dp"
+                android:padding="1dp"
+                android:textSize="17dp"
                 android:textColor="@color/fontcolor"
                 android:text="Address: " />
         </LinearLayout>
@@ -42,16 +43,17 @@
                 android:id="@+id/detailfragname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:textSize="20dp"
-                android:textColor="@android:color/holo_red_dark"
+                android:padding="1dp"
+                android:textSize="17dp"
+                android:textColor="@color/fontcolor"
                 android:text="Name: " />
 
             <TextView
                 android:id="@+id/detailfragdescription"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="5dp"
+                android:padding="2dp"
+                android:textSize="17dp"
                 android:textColor="@color/fontcolor"
                 android:text="Description: " />
 
@@ -60,14 +62,16 @@
                 android:id="@+id/detailfragcontact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:padding="1dp"
+                android:textSize="17dp"
                 android:textColor="@color/fontcolor"
                 android:text="Contact: " />
             <TextView
                 android:id="@+id/detailprice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:padding="1dp"
+                android:textSize="17dp"
                 android:textColor="@color/fontcolor"
                 android:text="Contact: " />
 
@@ -87,14 +91,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="230dp">
+        android:layout_marginTop="190dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="*Weather Report*"
             android:textStyle="bold"
-            android:textSize="25dp"
-            android:textColor="@android:color/holo_red_dark"
+            android:textSize="30dp"
+            android:textColor="@color/fontcolor"
             android:textAlignment="center"
             android:layout_gravity="center"/>
 
@@ -103,9 +107,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/fontcolor"
-            android:textAlignment="center"
             android:layout_gravity="center"
-            android:textSize="20dp"
+            android:textSize="17dp"
             android:text="Temperature: "
             />
 
@@ -114,9 +117,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/fontcolor"
-            android:textAlignment="center"
             android:layout_gravity="center"
-            android:textSize="20dp"
+            android:textSize="17dp"
             android:text="Description: "
             />
     </LinearLayout>
@@ -125,12 +127,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="380dp">
+        android:layout_marginTop="280dp">
         <Button
             android:id="@+id/navigateBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Navigate"/>
+            android:background="@drawable/roundbutton"
+            android:textColor="@color/fontcolor"
+            android:drawableLeft="@drawable/ic_navigation"
+            android:text="Navigate"
+            android:paddingBottom="2dp"
+            android:textAlignment="center"/>
         <fragment
             android:id="@+id/detailsMap"
             android:layout_width="match_parent"

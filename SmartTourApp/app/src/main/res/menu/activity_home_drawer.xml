@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_wishlist"
             android:icon="@drawable/ic_favorite_black_24dp"
-            android:title="Wishlist" />
+            android:title="Wishlist"
+
+
+            />
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/logout"
-            android:title="Sign Out" />
+            android:title="Sign Out"
+            />
 
     </group>
 

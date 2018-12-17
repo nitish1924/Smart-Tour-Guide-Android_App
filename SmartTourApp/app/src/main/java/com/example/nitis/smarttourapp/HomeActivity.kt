@@ -36,7 +36,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         //setting the nav drawer text fields
         val headerView = nav_view.getHeaderView(0)
-        headerView.navheadertext1.text = "Name : "+Uname
+        headerView.navheadertext1.text = "What's up "+Uname
         headerView.navheadertext2.text = Uemail
         headerView.navheadertext3.text = "Contact : "+Ucontact
 
